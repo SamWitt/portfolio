@@ -1,40 +1,51 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Samuel Witt — Portfolio</title>
-  <meta name="description" content="Interactive Win95-style desktop portfolio."/>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Samuel Witt — Portfolio</title>
+<meta name="description" content="Interactive Win95-style desktop portfolio."/>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Desktop + icons + start menu + templates (your current HTML body) -->
-  <!-- BEGIN: paste your whole body content exactly as you sent -->
-  <div class="desktop" id="desktop" aria-label="Desktop" role="application">
-    <div class="wallpaper" aria-hidden="true"></div>
+<div class="desktop" id="desktop" aria-label="Desktop" role="application">
+<div class="wallpaper" aria-hidden="true"></div>
+<div class="selection-marquee" id="marquee"></div>
 
-    <!-- Marquee rectangle -->
-    <div class="selection-marquee" id="marquee"></div>
 
-    <!-- Desktop Icons -->
-    <!-- ... keep all the icon blocks you pasted ... -->
+<!-- Desktop Icons -->
+<div class="icon about" tabindex="0" role="button" aria-label="About"> ... </div>
+<div class="icon music" tabindex="0" role="button" aria-label="Music"> ... </div>
+<div class="icon projects" tabindex="0" role="button" aria-label="Projects"> ... </div>
+<div class="icon contact" tabindex="0" role="button" aria-label="Contact"> ... </div>
+<div class="icon sticky" tabindex="0" role="button" aria-label="Sticky Notes"> ... </div>
+<div class="icon collaborators" tabindex="0" role="button" aria-label="Collaborators"> ... </div>
+<div class="icon publishers" tabindex="0" role="button" aria-label="Publishers"> ... </div>
 
-    <!-- Taskbar -->
-    <div class="taskbar" id="taskbar">
-      <button class="btn start" id="startBtn">START</button>
-      <div id="tasks" style="display:flex; gap:6px"></div>
-      <div class="status" id="clock"></div>
-    </div>
-  </div>
 
-  <div class="start-menu" id="startMenu" role="menu" aria-label="Start menu">
-    <!-- ... keep all the start menu items you pasted ... -->
-  </div>
+<!-- Taskbar -->
+<div class="taskbar" id="taskbar">
+<button class="btn start" id="startBtn">START</button>
+<div id="tasks" style="display:flex; gap:6px"></div>
+<div class="status" id="clock"></div>
+</div>
+</div>
 
-  <!-- Window + content templates -->
-  <!-- ... keep all the <template> blocks you pasted ... -->
-  <!-- END: paste your whole body content exactly as you sent -->
 
-  <script src="script.js" defer></script>
+<!-- Start menu -->
+<div class="start-menu" id="startMenu" role="menu" aria-label="Start menu"> ... </div>
+
+
+<!-- Window + content templates -->
+<template id="tpl-window"> ... </template>
+<template id="tpl-about"> ... </template>
+<template id="tpl-collaborators"> ... </template>
+<template id="tpl-music"> ... </template>
+<template id="tpl-publishers"> ... </template>
+<template id="tpl-projects"> ... </template>
+<template id="tpl-contact"> ... </template>
+
+
+<script src="script.js" defer></script>
 </body>
 </html>
