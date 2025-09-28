@@ -1,71 +1,69 @@
-<style>
-    :root{
-      --desk: #ffeb3b; --win: #ececec; --light:#fff; --dark:#999; --darker:#555;
-      --text:#000; --titlebar:#000080; --titlebar-inactive:#666;
-      --titletext:#fff; --taskbar:#c0c0c0; --accent:#ffeb3b; --accent-dim:#d4c23d;
-    }
-    *{box-sizing:border-box; user-select:none}
-    html,body{height:100%}
-    body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background:var(--desk)}
+:root{
+  --desk: #ffeb3b; --win: #ececec; --light:#fff; --dark:#999; --darker:#555;
+  --text:#000; --titlebar:#000080; --titlebar-inactive:#666;
+  --titletext:#fff; --taskbar:#c0c0c0; --accent:#ffeb3b; --accent-dim:#d4c23d;
+}
+*{box-sizing:border-box; user-select:none}
+html,body{height:100%}
+body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background:var(--desk)}
 
-    .desktop{position:fixed; inset:0; overflow:hidden}
-    .wallpaper{position:absolute; inset:0; background:var(--desk);}
+.desktop{position:fixed; inset:0; overflow:hidden}
+.wallpaper{position:absolute; inset:0; background:var(--desk);}
 
-    /* Desktop icons */
-    .icon{position:absolute; width:80px; display:flex; flex-direction:column; align-items:center; gap:4px; padding:4px; border-radius:4px; cursor:grab}
-    .icon:focus{outline:2px dotted var(--accent); outline-offset:2px}
-    .icon img, .icon svg{width:64px; height:64px; image-rendering:pixelated; object-fit:contain}
-    .icon svg{stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
-    .icon .label{color:#fff; font-size:12px; text-shadow:1px 1px 0 #000; text-align:center}
-    /* Default starting positions */
-    .icon.about{left:20px; top:20px}
-    .icon.music{left:20px; top:120px}
-    .icon.projects{left:20px; top:220px}
-    .icon.contact{left:20px; top:320px}
-    .icon.sticky{left:20px; top:420px}
-    .icon.collaborators{left:20px; top:520px}
-    .icon.publishers{left:20px; top:620px}
+/* Desktop icons */
+.icon{position:absolute; width:80px; display:flex; flex-direction:column; align-items:center; gap:4px; padding:4px; border-radius:4px; cursor:grab}
+.icon:focus{outline:2px dotted var(--accent); outline-offset:2px}
+.icon img, .icon svg{width:64px; height:64px; image-rendering:pixelated; object-fit:contain}
+.icon svg{stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.icon .label{color:#fff; font-size:12px; text-shadow:1px 1px 0 #000; text-align:center}
+/* Default starting positions */
+.icon.about{left:20px; top:20px}
+.icon.music{left:20px; top:120px}
+.icon.projects{left:20px; top:220px}
+.icon.contact{left:20px; top:320px}
+.icon.sticky{left:20px; top:420px}
+.icon.collaborators{left:20px; top:520px}
+.icon.publishers{left:20px; top:620px}
 
-    /* Windows */
-    .window{position:absolute; min-width:320px; min-height:160px; max-width:min(90vw, 900px); max-height:calc(100vh - 80px); background:var(--win); border:2px solid var(--dark); box-shadow:4px 4px 0 var(--darker); border-top-color:var(--light); border-left-color:var(--light); border-right-color:var(--dark); border-bottom-color:var(--dark); resize: both; overflow: auto}
-    .titlebar{display:flex; align-items:center; justify-content:space-between; padding:2px 6px; background:var(--titlebar); color:var(--titletext); cursor:move}
-    .titlebar.inactive{background:var(--titlebar-inactive)}
-    .titlebar .title{display:flex; align-items:center; gap:6px}
-    .titlebar .controls{display:flex; gap:2px}
-    .btn{width:20px; height:20px; display:grid; place-items:center; background:var(--win); border:1px solid var(--dark); font-weight:bold}
-    /* Button size overrides for Start & taskbar buttons */
-    .btn.start, .btn.task-btn{width:auto; height:26px; padding:0 10px; display:inline-flex; align-items:center; justify-content:center;}
-    .btn.task-btn{max-width:200px; min-width:120px}
-    .btn.start{font-weight:800; letter-spacing:0.5px;}
-    .btn:active{background:var(--accent)}
-    .content{padding:10px}
+/* Windows */
+.window{position:absolute; min-width:320px; min-height:160px; max-width:min(90vw, 900px); max-height:calc(100vh - 80px); background:var(--win); border:2px solid var(--dark); box-shadow:4px 4px 0 var(--darker); border-top-color:var(--light); border-left-color:var(--light); border-right-color:var(--dark); border-bottom-color:var(--dark); resize: both; overflow: auto}
+.titlebar{display:flex; align-items:center; justify-content:space-between; padding:2px 6px; background:var(--titlebar); color:var(--titletext); cursor:move}
+.titlebar.inactive{background:var(--titlebar-inactive)}
+.titlebar .title{display:flex; align-items:center; gap:6px}
+.titlebar .controls{display:flex; gap:2px}
+.btn{width:20px; height:20px; display:grid; place-items:center; background:var(--win); border:1px solid var(--dark); font-weight:bold}
+/* Button size overrides for Start & taskbar buttons */
+.btn.start, .btn.task-btn{width:auto; height:26px; padding:0 10px; display:inline-flex; align-items:center; justify-content:center;}
+.btn.task-btn{max-width:200px; min-width:120px}
+.btn.start{font-weight:800; letter-spacing:0.5px;}
+.btn:active{background:var(--accent)}
+.content{padding:10px}
 
-    /* Taskbar */
-    .taskbar{position:fixed; left:0; right:0; bottom:0; height:32px; background:var(--taskbar); border-top:2px solid var(--light); display:flex; align-items:center; gap:4px; padding:2px}
-    .start{margin-left:4px; background:var(--win); border:2px outset var(--light); box-shadow:inset -1px -1px 0 var(--dark), inset 1px 1px 0 var(--light)}
-    .task-btn{max-width:200px; min-width:120px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; background:var(--win); border:2px outset var(--light)}
-    .status{margin-left:auto; padding:0 8px}
+/* Taskbar */
+.taskbar{position:fixed; left:0; right:0; bottom:0; height:32px; background:var(--taskbar); border-top:2px solid var(--light); display:flex; align-items:center; gap:4px; padding:2px}
+.start{margin-left:4px; background:var(--win); border:2px outset var(--light); box-shadow:inset -1px -1px 0 var(--dark), inset 1px 1px 0 var(--light)}
+.task-btn{max-width:200px; min-width:120px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; background:var(--win); border:2px outset var(--light)}
+.status{margin-left:auto; padding:0 8px}
 
-    /* Marquee selection */
-    .selection-marquee{position:absolute; border:1px dashed #000; background:rgba(255,235,59,.18); display:none; pointer-events:none; z-index:5}
-    .icon.selected{outline:2px dashed var(--accent); outline-offset:2px; filter:drop-shadow(0 0 2px #000)}
+/* Marquee selection */
+.selection-marquee{position:absolute; border:1px dashed #000; background:rgba(255,235,59,.18); display:none; pointer-events:none; z-index:5}
+.icon.selected{outline:2px dashed var(--accent); outline-offset:2px; filter:drop-shadow(0 0 2px #000)}
 
-    /* Start menu */
-    .start-menu{position:fixed; left:6px; bottom:36px; width:220px; background:#f0f0f0; border:2px solid var(--dark); border-top-color:var(--light); border-left-color:var(--light); box-shadow:4px 4px 0 var(--darker); display:none; z-index:9999}
-    .start-menu header{background:var(--titlebar); color:var(--titletext); padding:4px 6px; font-weight:700; border-bottom:1px solid #335}
-    .start-menu .item{display:flex; align-items:center; gap:8px; padding:8px; cursor:pointer}
-    .start-menu .item:hover{background:#dcdcdc}
-    .start-menu .item svg{width:18px; height:18px; stroke:#000}
-    .start-menu .hr{height:1px; background:#ccc; margin:4px 0}
+/* Start menu */
+.start-menu{position:fixed; left:6px; bottom:36px; width:220px; background:#f0f0f0; border:2px solid var(--dark); border-top-color:var(--light); border-left-color:var(--light); box-shadow:4px 4px 0 var(--darker); display:none; z-index:9999}
+.start-menu header{background:var(--titlebar); color:var(--titletext); padding:4px 6px; font-weight:700; border-bottom:1px solid #335}
+.start-menu .item{display:flex; align-items:center; gap:8px; padding:8px; cursor:pointer}
+.start-menu .item:hover{background:#dcdcdc}
+.start-menu .item svg{width:18px; height:18px; stroke:#000}
+.start-menu .hr{height:1px; background:#ccc; margin:4px 0}
 
-    /* Sticky notes */
-    .sticky-note{position:absolute; background:#fffbe8; color:#222; border:1px solid #e7da93; box-shadow:3px 3px 0 #000; padding:10px 28px 10px 10px; border-radius:6px; width:220px; min-width:160px; min-height:120px; resize:both; overflow:auto; user-select:text}
-    .sticky-note .body{min-height:80px; outline:none; user-select:text; white-space:pre-wrap;}
-    .sticky-note .body:empty:before{content:'New note…'; color:#555;}
-    .sticky-note .close{position:absolute; right:6px; top:6px; width:18px; height:18px; background:#000; color:#fffbe8; border:1px solid #000; border-radius:2px; cursor:pointer}
-    .sticky-note.dragging{opacity:.9}
-    .sticky-toolbar{display:flex; gap:8px; margin-bottom:8px}
-    .sticky-btn{padding:6px 10px; border:2px solid #ccc; background:#eee; color:#000; border-radius:2px; cursor:pointer}
-    .sticky-list{font-size:10px; color:#555}
-    .sticky-list code{color:#000}
-  </style>
+/* Sticky notes */
+.sticky-note{position:absolute; background:#fffbe8; color:#222; border:1px solid #e7da93; box-shadow:3px 3px 0 #000; padding:10px 28px 10px 10px; border-radius:6px; width:220px; min-width:160px; min-height:120px; resize:both; overflow:auto; user-select:text}
+.sticky-note .body{min-height:80px; outline:none; user-select:text; white-space:pre-wrap;}
+.sticky-note .body:empty:before{content:'New note…'; color:#555;}
+.sticky-note .close{position:absolute; right:6px; top:6px; width:18px; height:18px; background:#000; color:#fffbe8; border:1px solid #000; border-radius:2px; cursor:pointer}
+.sticky-note.dragging{opacity:.9}
+.sticky-toolbar{display:flex; gap:8px; margin-bottom:8px}
+.sticky-btn{padding:6px 10px; border:2px solid #ccc; background:#eee; color:#000; border-radius:2px; cursor:pointer}
+.sticky-list{font-size:10px; color:#555}
+.sticky-list code{color:#000}
