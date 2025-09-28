@@ -3,171 +3,159 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Samuel Witt — Music Maker - Producer - Composer</title>
-  <meta name="description" content="Music for film, TV, games, and media by Samuel Witt." />
-  <link rel="icon" href="assets/favicon.svg" />
-  <meta property="og:title" content="Samuel Witt — Composer" />
-  <meta property="og:description" content="Making Music Via Logic Pro and a Keyboard." />
-  <meta property="og:image" content="assets/og-image.jpg" />
-  <link rel="preload" href="assets/audio/Talk About It.mp3" as="audio" />
-  <link rel="stylesheet" href="styles.css" />
+  <title>Samuel Witt — Portfolio</title>
+  <meta name="description" content="Interactive Win95-style desktop portfolio."/>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="#home">
-        <span class="dot"></span><span>Samuel Witt</span><span class="muted">Composer</span>
-      </a>
-      <nav>
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#press">Press</a>
-        <a href="#contact">Contact</a>
-      </nav>
+  <div class="desktop" id="desktop" aria-label="Desktop" role="application">
+    <div class="wallpaper" aria-hidden="true"></div>
+
+    <!-- Marquee rectangle -->
+    <div class="selection-marquee" id="marquee"></div>
+
+    <!-- Desktop Icons -->
+    <div class="icon about" tabindex="0" role="button" aria-label="About">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="7" r="4"></circle>
+        <path d="M6 21v-2a6 6 0 0 1 12 0v2"></path>
+      </svg>
+      <div class="label">About</div>
     </div>
-  </header>
+    <div class="icon music" tabindex="0" role="button" aria-label="Music">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="6" cy="18" r="3"></circle>
+        <circle cx="18" cy="16" r="3"></circle>
+        <path d="M9 17V5l10-2v12"></path>
+      </svg>
+      <div class="label">Music</div>
+    </div>
+    <div class="icon projects" tabindex="0" role="button" aria-label="Projects">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      </svg>
+      <div class="label">Projects</div>
+    </div>
+    <div class="icon contact" tabindex="0" role="button" aria-label="Contact">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="6" width="18" height="12" rx="2" ry="2"></rect>
+        <path d="M3 8l9 6 9-6"></path>
+      </svg>
+      <div class="label">Contact</div>
+    </div>
+    <div class="icon sticky" tabindex="0" role="button" aria-label="Sticky Notes">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 3h10a2 2 0 0 1 2 2v9l-5 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path>
+        <path d="M14 19v-4h4"></path>
+      </svg>
+      <div class="label">Sticky</div>
+    </div>
+    <div class="icon collaborators" tabindex="0" role="button" aria-label="Collaborators">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="8" cy="8" r="3"></circle>
+        <circle cx="16" cy="8" r="3"></circle>
+        <path d="M3 20v-1a5 5 0 0 1 5-5h0"></path>
+        <path d="M21 20v-1a5 5 0 0 0-5-5h0"></path>
+      </svg>
+      <div class="label">Collaborators</div>
+    </div>
+    <div class="icon publishers" tabindex="0" role="button" aria-label="Publishers">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect>
+        <path d="M7 8h10"></path>
+        <path d="M7 12h10"></path>
+        <path d="M7 16h6"></path>
+      </svg>
+      <div class="label">Publishers</div>
+    </div>
 
-  <main id="home" class="container">
-    <!-- Hero -->
-    <section class="hero card">
-      <div class="hero-grid">
-        <div>
-          <span class="tag">Music for Visual Media</span>
-          <h1>Original music for film, television, indie games & podcasts.</h1>
-          <p class="lead">I make one-stop production music</p>
-          <div class="row">
-            <a class="btn primary" href="#work">Listen to cues</a>
-            <a class="btn ghost" href="#contact">Get in touch</a>
-          </div>
-          <div class="kpis">
-            <div class="kpi"><b>+50</b><br/>released tracks</div>
-            <div class="kpi"><b>10</b><br/>soundtracks</div>
-            <div class="kpi"><b>4</b><br/>awards/nominations</div>
-          </div>
-        </div>
-        <div class="hero-art">
-          <img src="assets/img/hero.jpg" alt="Studio portrait" />
-        </div>
-      </div>
-    </section>
+    <!-- Taskbar -->
+    <div class="taskbar" id="taskbar">
+      <button class="btn start" id="startBtn">START</button>
+      <div id="tasks" style="display:flex; gap:6px"></div>
+      <div class="status" id="clock"></div>
+    </div>
+  </div>
 
-    <!-- Work (click images to hear samples) -->
-    <section id="work">
-      <div class="section-head">
-        <h2>Work</h2>
-        <p class="muted">Click any image to play a sample.</p>
-      </div>
+  <div class="start-menu" id="startMenu" role="menu" aria-label="Start menu">
+    <header>Programs</header>
+    <div class="item" data-open="about"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a6 6 0 0 1 12 0v2"/></svg> About</div>
+    <div class="item" data-open="projects"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Projects</div>
+    <div class="item" data-open="music"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M9 17V5l10-2v12"/></svg> Music</div>
+    <div class="item" data-open="contact"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2" ry="2"/><path d="M3 8l9 6 9-6"/></svg> Contact</div>
+    <div class="item" data-open="collaborators"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 20v-1a5 5 0 0 1 5-5"/><path d="M21 20v-1a5 5 0 0 0-5-5"/></svg> Collaborators</div>
+    <div class="item" data-open="publishers"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" ry="2"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h6"/></svg> Publishers</div>
+    <div class="item" data-sticky="new"><svg viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v9l-5 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 19v-4h4"/></svg> New Sticky Note</div>
+    <div class="hr"></div>
+    <div class="item" data-cmd="closeAll"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg> Close All Windows</div>
+  </div>
 
-      <div class="projects">
-        <!-- Project card -->
-        <article class="project card" data-audio="assets/audio/mountains.mp3" data-title="Mountains" data-length="1:27">
-          <a class="thumb" role="button" aria-label="Play Mountains">
-            <img src="assets/img/mountains.jpg" alt="Mountains still" loading="lazy" />
-            <div class="play-overlay" aria-hidden="true">▶</div>
-          </a>
-          <div class="meta">
-            <div>
-              <h3 class="project-title">Mountains</h3>
-              <div class="tags">
-                <span class="tag">Inspirational</span>
-                <span class="tag">Orchestral</span>
-              </div>
-            </div>
-            <span class="muted">1:27</span>
-          </div>
-        </article>
-
-        <article class="project card" data-audio="assets/audio/castle-battle.mp3" data-title="The Castle Battle" data-length="1:20">
-          <a class="thumb" role="button" aria-label="Play The Castle Battle">
-            <img src="assets/img/castle.jpg" alt="Castle action still" loading="lazy" />
-            <div class="play-overlay" aria-hidden="true">▶</div>
-          </a>
-          <div class="meta">
-            <div>
-              <h3 class="project-title">The Castle Battle</h3>
-              <div class="tags">
-                <span class="tag">Action</span>
-                <span class="tag">Hybrid</span>
-              </div>
-            </div>
-            <span class="muted">1:20</span>
-          </div>
-        </article>
-
-        <!-- Duplicate <article> blocks for more cues -->
-      </div>
-
-      <!-- Global sticky player -->
-      <div class="player card" aria-live="polite">
-        <div class="player-left">
-          <button class="icon" id="prevBtn" aria-label="Previous">⏮</button>
-          <button class="icon" id="playPauseBtn" aria-label="Play/Pause">▶</button>
-          <button class="icon" id="nextBtn" aria-label="Next">⏭</button>
-        </div>
-        <div class="player-mid">
-          <div class="player-title">Select a track</div>
-          <div class="progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <div class="progress"></div>
-          </div>
-        </div>
-        <div class="player-right">
-          <span class="time">0:00</span>
-          <input type="range" min="0" max="1" step="0.01" value="0.85" id="volume" aria-label="Volume" />
-        </div>
-        <audio id="audio" preload="none"></audio>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section id="about">
-      <div class="section-head">
-        <h2>About</h2>
-      </div>
-      <div class="card about">
-        <p>Samuel Witt is a composer for film, television, and games. Recent work includes <em>Project A</em>, <em>Series B</em>, and <em>Game C</em>. He blends acoustic and electronic palettes to support character and world-building.</p>
-      </div>
-    </section>
-
-    <!-- Press -->
-    <section id="press">
-      <div class="section-head">
-        <h2>Press</h2>
-        <p class="muted">Selected quotes & links.</p>
-      </div>
-      <div class="list">
-        <div class="item">
-          <div>⭐️</div>
-          <p>“Beautiful and haunting score… highly listenable on its own.” — <a href="#" rel="nofollow">Outlet Name</a></p>
-        </div>
-        <div class="item">
-          <div>⭐️</div>
-          <p>“A secret weapon—thoughtful music that invokes real emotion.” — <a href="#" rel="nofollow">Outlet Name</a></p>
+  <!-- Window + content templates -->
+  <template id="tpl-window">
+    <div class="window" role="dialog" aria-modal="false" aria-label="Window">
+      <div class="titlebar">
+        <div class="title"><span>Untitled</span></div>
+        <div class="controls">
+          <button class="btn btn-min" title="Minimize" aria-label="Minimize">▁</button>
+          <button class="btn btn-max" title="Maximize" aria-label="Maximize">▢</button>
+          <button class="btn btn-close" title="Close" aria-label="Close">✕</button>
         </div>
       </div>
-    </section>
+      <div class="content"></div>
+    </div>
+  </template>
 
-    <!-- Contact -->
-    <section id="contact">
-      <div class="section-head">
-        <h2>Contact</h2>
-      </div>
-      <div class="card contact">
-        <p>For collaborations, screenings, or briefs: <a href="mailto:you@example.com">you@example.com</a></p>
-        <p>
-          <a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify</a>
-          <a class="btn" href="https://bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a>
-          <a class="btn" href="https://soundcloud.com/" target="_blank" rel="noopener">SoundCloud</a>
-          <a class="btn" href="https://www.imdb.com/" target="_blank" rel="noopener">IMDb</a>
-        </p>
-      </div>
-    </section>
-  </main>
+  <template id="tpl-about">
+    <div>
+      <h3 style="margin:0 0 8px">About</h3>
+      <p>Hi! I’m Samuel Witt — composer for film/TV/games. This is a demo window.</p>
+    </div>
+  </template>
+  
+  <template id="tpl-collaborators">
+    <div>
+      <h3 style="margin:0 0 8px">Collaborators</h3>
+      <ul style="margin:0 0 0 18px">
+        <li>Jane Doe — Violin</li>
+        <li>John Smith — Mixing Engineer</li>
+        <li>Ash Lee — Sound Designer</li>
+      </ul>
+      <p style="margin-top:8px; font-size:12px; color:#444">(Tell me your real list and I’ll swap it in.)</p>
+    </div>
+  </template>
+  
+  <template id="tpl-music">
+    <div>
+      <h3 style="margin:0 0 8px">Music</h3>
+      <p>Drop your MP3s in <code>assets/audio/</code> and we can wire a player here.</p>
+    </div>
+  </template>
 
-  <footer class="site-footer">
-    <div class="container muted">© <span id="year"></span> Samuel Witt</div>
-  </footer>
+  <template id="tpl-publishers">
+    <div>
+      <h3 style="margin:0 0 8px">Publishers</h3>
+      <ul style="margin:0 0 0 18px">
+        <li>Yellow Sound Library</li>
+        <li>North Star Music</li>
+      </ul>
+      <p style="margin-top:8px; font-size:12px; color:#444">(Share the official names + links to update these.)</p>
+    </div>
+  </template>
 
-  <script src="script.js"></script>
+  <template id="tpl-projects">
+    <div>
+      <h3 style="margin:0 0 8px">Projects</h3>
+      <ul style="margin:0 0 0 18px">
+        <li>Project A — Trailer cue</li>
+        <li>Project B — Game loop</li>
+      </ul>
+    </div>
+  </template>
+
+  <template id="tpl-contact">
+    <div>
+      <h3 style="margin:0 0 8px">Contact</h3>
+      <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
+    </div>
+  </template>
 </body>
 </html>
-
