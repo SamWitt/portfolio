@@ -109,7 +109,6 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
   .content-section.about .about-columns{flex-direction:row; align-items:flex-start}
   .about-options{min-width:140px}
 }
-
 /* Publishers window */
 .content-section.publishers .publisher-columns{display:flex; flex-direction:column; gap:16px}
 .content-section.publishers .publisher-panels{flex:1; min-width:0}

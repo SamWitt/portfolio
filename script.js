@@ -68,43 +68,32 @@ function makeWindow({title, tpl, x=140, y=90, w=420}){
   node.querySelector('.content').append(document.getElementById(tpl).content.cloneNode(true));
   desktop.appendChild(node); bringToFront(node);
 
-  // titlebar drag
+  // titlebar drag (Pointer Events)
   const bar = node.querySelector('.titlebar');
   let pointerId=null, offX=0, offY=0;
 
   function onMove(e){
     if(e.pointerId!==pointerId) return;
     node.style.left = Math.max(0, e.clientX-offX)+'px';
-    node.style.top = Math.max(0, e.clientY-offY)+'px';
+    node.style.top  = Math.max(0, e.clientY-offY)+'px';
   }
-
-  function onUp(e){
-    if(e.pointerId!==pointerId) return;
-    cleanup();
-  }
-
-  function onCancel(e){
-    if(e.pointerId!==pointerId) return;
-    cleanup();
-  }
-
   function cleanup(){
     if(pointerId===null) return;
     const id = pointerId;
     pointerId=null;
-    if(bar.hasPointerCapture?.(id)){
-      bar.releasePointerCapture(id);
-    }
+    if (bar.hasPointerCapture?.(id)) bar.releasePointerCapture(id);
     bar.removeEventListener('pointermove', onMove);
     bar.removeEventListener('pointerup', onUp);
     bar.removeEventListener('pointercancel', onCancel);
     bar.style.touchAction='';
   }
+  function onUp(e){ if(e.pointerId===pointerId) cleanup(); }
+  function onCancel(e){ if(e.pointerId===pointerId) cleanup(); }
 
   bar.addEventListener('pointerdown', e=>{
-    if(e.target.closest('.controls')) return;
-    if(e.pointerType==='mouse' && e.button!==0) return;
-    if(pointerId!==null) return;
+    if(e.target.closest('.controls')) return;                // don't drag from control buttons
+    if(e.pointerType==='mouse' && e.button!==0) return;      // left mouse only
+    if(pointerId!==null) return;                              // already dragging
     pointerId=e.pointerId;
     bringToFront(node);
     offX=e.clientX-node.offsetLeft;
@@ -116,7 +105,6 @@ function makeWindow({title, tpl, x=140, y=90, w=420}){
     bar.setPointerCapture?.(pointerId);
     e.preventDefault();
   });
-
   bar.addEventListener('lostpointercapture', cleanup);
 
   // controls
@@ -127,19 +115,28 @@ function makeWindow({title, tpl, x=140, y=90, w=420}){
       node.style.left=node.dataset.l; node.style.top=node.dataset.t; node.style.width=node.dataset.w; node.style.height=node.dataset.h; node.dataset.max='0';
     } else {
       node.dataset.l=node.style.left; node.dataset.t=node.style.top; node.dataset.w=node.style.width; node.dataset.h=node.style.height; node.dataset.max='1';
-      node.style.left='8px'; node.style.top='8px'; node.style.width=(window.innerWidth-16)+'px'; node.style.height=(window.innerHeight-48)+'px';
+      node.style.left='8px'; node.style.top='8px';
+      node.style.width=(window.innerWidth-16)+'px';
+      node.style.height=(window.innerHeight-48)+'px';
     }
     bringToFront(node);
   });
 
   // taskbar button
-  const tb = document.createElement('button'); tb.className='btn task-btn'; tb.textContent=title; tasks.appendChild(tb);
-  tb.addEventListener('click', ()=>{ if(node.style.display==='none'){ node.style.display='block'; bringToFront(node);} else { node.style.display='none'; } });
+  const tb = document.createElement('button');
+  tb.className='btn task-btn';
+  tb.textContent=title;
+  tasks.appendChild(tb);
+  tb.addEventListener('click', ()=>{
+    if(node.style.display==='none'){ node.style.display='block'; bringToFront(node); }
+    else { node.style.display='none'; }
+  });
 
   node.addEventListener('pointerdown', ()=> bringToFront(node));
   return node;
 }
 
+/* ------- Generic tabbed window helper (kept) ------- */
 function initTabbedWindow(windowEl, { optionSelector, panelSelector } = {}){
   if(!windowEl || !optionSelector || !panelSelector) return;
   const options = Array.from(windowEl.querySelectorAll(optionSelector));
@@ -150,9 +147,8 @@ function initTabbedWindow(windowEl, { optionSelector, panelSelector } = {}){
     const key = panel.dataset.option;
     if(!key) return;
     panels.set(key, panel);
-    panel.hidden = !panel.classList.contains('is-active');
+    panel.hidden = !panel.classList.contains('is-active'); // only active visible
   });
-
   if(!panels.size) return;
 
   const activate = (button) => {
@@ -175,9 +171,7 @@ function initTabbedWindow(windowEl, { optionSelector, panelSelector } = {}){
   };
 
   const initial = options.find(btn => btn.classList.contains('is-active')) || options[0];
-  if(initial){
-    activate(initial);
-  }
+  if(initial) activate(initial);
 
   options.forEach((btn, index) => {
     btn.addEventListener('click', () => activate(btn));
@@ -186,25 +180,23 @@ function initTabbedWindow(windowEl, { optionSelector, panelSelector } = {}){
       if(key === 'ArrowUp' || key === 'ArrowLeft'){
         event.preventDefault();
         const prev = options[(index - 1 + options.length) % options.length];
-        prev.focus();
-        activate(prev);
+        prev.focus(); activate(prev);
       } else if(key === 'ArrowDown' || key === 'ArrowRight'){
         event.preventDefault();
         const next = options[(index + 1) % options.length];
-        next.focus();
-        activate(next);
+        next.focus(); activate(next);
       }
     });
   });
 }
 
+/* ------- Specific initializers using the helper ------- */
 function initAboutWindow(windowEl){
   initTabbedWindow(windowEl, {
     optionSelector: '.about-option',
     panelSelector: '.about-panel'
   });
 }
-
 function initPublishersWindow(windowEl){
   initTabbedWindow(windowEl, {
     optionSelector: '.publisher-option',
@@ -212,6 +204,7 @@ function initPublishersWindow(windowEl){
   });
 }
 
+/* ------- Openers ------- */
 const openers = {
   about: () => {
     const win = makeWindow({title:'About', tpl:'tpl-about', x:200, y:100});
@@ -224,6 +217,9 @@ const openers = {
   collaborators: () => makeWindow({title:'Collaborators', tpl:'tpl-collaborators', x:200, y:180, w:420}),
   publishers: () => {
     const win = makeWindow({title:'Publishers', tpl:'tpl-publishers', x:220, y:200, w:440});
+    // Only runs if your publishers template actually contains tab markup:
+    //   <button class="publisher-option" ... data-option="...">
+    //   <div class="publisher-panel" data-option="...">
     initPublishersWindow(win);
     return win;
   }
