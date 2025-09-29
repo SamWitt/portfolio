@@ -204,37 +204,47 @@ function initPublishersWindow(windowEl){
   });
 }
 
-function initPlacementsWindow(windowEl){
+// Canonical initializer that supports both naming schemes
+function initProjectsWindow(windowEl){
+  if (!windowEl) return;
   initTabbedWindow(windowEl, {
-    optionSelector: '.placements-option',
-    panelSelector: '.placements-panel'
+    // support either .placements-* (new) or .project-* (old)
+    optionSelector: '.placements-option, .project-option',
+    panelSelector:  '.placements-panel,  .project-panel'
   });
 }
+
+// Optional alias: keep compatibility if some code calls the other name
+const initPlacementsWindow = initProjectsWindow;
 
 /* ------- Openers ------- */
 const openers = {
   about: () => {
-    const win = makeWindow({title:'About', tpl:'tpl-about', x:200, y:100});
-    initAboutWindow(win);
+    const win = makeWindow({ title: 'About', tpl: 'tpl-about', x: 200, y: 100 });
+    if (typeof initAboutWindow === 'function') initAboutWindow(win);
     return win;
   },
-  music: () => makeWindow({title:'Music', tpl:'tpl-music', x:260, y:120, w:520}),
+
+  music: () => makeWindow({ title: 'Music', tpl: 'tpl-music', x: 260, y: 120, w: 520 }),
+
+  // Projects window (can be labeled "Placements" in the UI if you prefer)
   projects: () => {
-    const win = makeWindow({title:'Projects', tpl:'tpl-projects', x:240, y:140, w:480});
-    initPlacementsWindow(win);
+    const win = makeWindow({ title: 'Projects', tpl: 'tpl-projects', x: 240, y: 140, w: 520 });
+    if (typeof initProjectsWindow === 'function') initProjectsWindow(win); // robust either way
     return win;
   },
-  contact: () => makeWindow({title:'Contact', tpl:'tpl-contact', x:220, y:160, w:360}),
-  collaborators: () => makeWindow({title:'Collaborators', tpl:'tpl-collaborators', x:200, y:180, w:420}),
+
+  contact: () => makeWindow({ title: 'Contact', tpl: 'tpl-contact', x: 220, y: 160, w: 360 }),
+  collaborators: () => makeWindow({ title: 'Collaborators', tpl: 'tpl-collaborators', x: 200, y: 180, w: 420 }),
+
   publishers: () => {
-    const win = makeWindow({title:'Publishers', tpl:'tpl-publishers', x:220, y:200, w:440});
-    // Only runs if your publishers template actually contains tab markup:
-    //   <button class="publisher-option" ... data-option="...">
-    //   <div class="publisher-panel" data-option="...">
-    initPublishersWindow(win);
+    const win = makeWindow({ title: 'Publishers', tpl: 'tpl-publishers', x: 220, y: 200, w: 440 });
+    if (typeof initPublishersWindow === 'function') initPublishersWindow(win);
     return win;
   }
 };
+
+
 
 // Sticky Notes
 function createNote({x=260,y=100,w=220,h=160,text='New note…'}={}){
