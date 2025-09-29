@@ -96,6 +96,9 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 .sticky-list code{color:#000}
 
 /* About window */
+.content-section.about .about-hero{display:flex; flex-direction:column; align-items:center; gap:16px; margin:0 0 16px}
+.content-section.about .about-hero img{width:160px; max-width:100%; height:auto; border:2px solid var(--dark); border-radius:12px; background:var(--light); box-shadow:inset -2px -2px 0 rgba(0,0,0,0.18)}
+.content-section.about .about-blurb{display:flex; flex-direction:column; gap:12px; max-width:65ch; text-align:left}
 .content-section.about .about-columns{display:flex; flex-direction:column; gap:16px}
 .content-section.about .about-panels{flex:1; min-width:0}
 .about-options{display:flex; flex-direction:column; gap:8px; align-self:flex-start}
@@ -106,6 +109,9 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 .about-panel.is-active{display:block}
 
 @media (min-width:640px){
+  .content-section.about .about-hero{flex-direction:row; align-items:flex-start; gap:24px}
+  .content-section.about .about-hero img{width:200px; flex:0 0 auto}
+  .content-section.about .about-blurb{align-items:flex-start}
   .content-section.about .about-columns{flex-direction:row; align-items:flex-start}
   .about-options{min-width:140px}
 }
