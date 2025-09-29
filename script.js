@@ -140,13 +140,93 @@ function makeWindow({title, tpl, x=140, y=90, w=420}){
   return node;
 }
 
+function initTabbedWindow(windowEl, { optionSelector, panelSelector } = {}){
+  if(!windowEl || !optionSelector || !panelSelector) return;
+  const options = Array.from(windowEl.querySelectorAll(optionSelector));
+  if(!options.length) return;
+
+  const panels = new Map();
+  windowEl.querySelectorAll(panelSelector).forEach(panel => {
+    const key = panel.dataset.option;
+    if(!key) return;
+    panels.set(key, panel);
+    panel.hidden = !panel.classList.contains('is-active');
+  });
+
+  if(!panels.size) return;
+
+  const activate = (button) => {
+    if(!button) return;
+    const key = button.dataset.option;
+    if(!key || !panels.has(key)) return;
+
+    options.forEach(btn => {
+      const active = btn === button;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', String(active));
+      btn.setAttribute('aria-expanded', String(active));
+    });
+
+    panels.forEach((panel, panelKey) => {
+      const active = panelKey === key;
+      panel.classList.toggle('is-active', active);
+      panel.hidden = !active;
+    });
+  };
+
+  const initial = options.find(btn => btn.classList.contains('is-active')) || options[0];
+  if(initial){
+    activate(initial);
+  }
+
+  options.forEach((btn, index) => {
+    btn.addEventListener('click', () => activate(btn));
+    btn.addEventListener('keydown', (event) => {
+      const { key } = event;
+      if(key === 'ArrowUp' || key === 'ArrowLeft'){
+        event.preventDefault();
+        const prev = options[(index - 1 + options.length) % options.length];
+        prev.focus();
+        activate(prev);
+      } else if(key === 'ArrowDown' || key === 'ArrowRight'){
+        event.preventDefault();
+        const next = options[(index + 1) % options.length];
+        next.focus();
+        activate(next);
+      }
+    });
+  });
+}
+
+function initAboutWindow(windowEl){
+  initTabbedWindow(windowEl, {
+    optionSelector: '.about-option',
+    panelSelector: '.about-panel'
+  });
+}
+
+function initPublishersWindow(windowEl){
+  initTabbedWindow(windowEl, {
+    optionSelector: '.publisher-option',
+    panelSelector: '.publisher-panel'
+  });
+}
+
 const openers = {
-  about: () => makeWindow({title:'About', tpl:'tpl-about', x:200, y:100}),
+  about: () => {
+    const win = makeWindow({title:'About', tpl:'tpl-about', x:200, y:100});
+    initAboutWindow(win);
+    return win;
+  },
   music: () => makeWindow({title:'Music', tpl:'tpl-music', x:260, y:120, w:520}),
   projects: () => makeWindow({title:'Projects', tpl:'tpl-projects', x:240, y:140, w:480}),
   contact: () => makeWindow({title:'Contact', tpl:'tpl-contact', x:220, y:160, w:360}),
   collaborators: () => makeWindow({title:'Collaborators', tpl:'tpl-collaborators', x:200, y:180, w:420}),
-  publishers: () => makeWindow({title:'Publishers', tpl:'tpl-publishers', x:220, y:200, w:420})
+  publishers: () => {
+    const win = makeWindow({title:'Publishers', tpl:'tpl-publishers', x:220, y:200, w:440});
+    initPublishersWindow(win);
+    return win;
+  }
 };
 
 // Sticky Notes
