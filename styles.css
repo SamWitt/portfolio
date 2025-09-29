@@ -17,7 +17,7 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 
 .icon {
   position:absolute;
-  width:80px;
+  width:240px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -31,8 +31,8 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
   outline-offset:2px;
 }
 .icon img, .icon svg {
-  width:64px;
-  height:64px;
+  width:192px;
+  height:192px;
   image-rendering:pixelated;
   object-fit:contain;
   pointer-events: none;
@@ -53,13 +53,13 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
   text-align:center;
 }
 /* Default starting positions */
-.icon.about{left:20px; top:20px}
-.icon.music{left:20px; top:120px}
-.icon.projects{left:20px; top:220px}
-.icon.contact{left:20px; top:320px}
-.icon.sticky{left:20px; top:420px}
-.icon.collaborators{left:20px; top:520px}
-.icon.publishers{left:20px; top:620px}
+.icon.about{left:20px; top:220px}
+.icon.music{left:20px; top:320px}
+.icon.projects{left:20px; top:420px}
+.icon.contact{left:20px; top:520px}
+.icon.sticky{left:20px; top:620px}
+.icon.collaborators{left:20px; top:720px}
+.icon.publishers{left:20px; top:820px}
 
 /* Windows */
 .window{position:absolute; min-width:320px; min-height:160px; max-width:min(90vw, 900px); max-height:calc(100vh - 80px); background:var(--win); border:2px solid var(--dark); box-shadow:4px 4px 0 var(--darker); border-top-color:var(--light); border-left-color:var(--light); border-right-color:var(--dark); border-bottom-color:var(--dark); resize: both; overflow: auto}
