@@ -204,6 +204,13 @@ function initPublishersWindow(windowEl){
   });
 }
 
+function initPlacementsWindow(windowEl){
+  initTabbedWindow(windowEl, {
+    optionSelector: '.placements-option',
+    panelSelector: '.placements-panel'
+  });
+}
+
 /* ------- Openers ------- */
 const openers = {
   about: () => {
@@ -212,7 +219,11 @@ const openers = {
     return win;
   },
   music: () => makeWindow({title:'Music', tpl:'tpl-music', x:260, y:120, w:520}),
-  projects: () => makeWindow({title:'Projects', tpl:'tpl-projects', x:240, y:140, w:480}),
+  projects: () => {
+    const win = makeWindow({title:'Projects', tpl:'tpl-projects', x:240, y:140, w:480});
+    initPlacementsWindow(win);
+    return win;
+  },
   contact: () => makeWindow({title:'Contact', tpl:'tpl-contact', x:220, y:160, w:360}),
   collaborators: () => makeWindow({title:'Collaborators', tpl:'tpl-collaborators', x:200, y:180, w:420}),
   publishers: () => {
