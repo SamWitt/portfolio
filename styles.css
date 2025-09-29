@@ -98,7 +98,15 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 
 /* About window */
 .content-section.about .about-hero{display:flex; flex-direction:column; align-items:center; gap:16px; margin:0 0 16px}
+.content-section.about .about-portrait{display:flex; flex-direction:column; align-items:center; gap:12px}
 .content-section.about .about-hero img{width:160px; max-width:100%; height:auto; border:2px solid var(--dark); border-radius:12px; background:var(--light); box-shadow:inset -2px -2px 0 rgba(0,0,0,0.18)}
+.content-section.about .about-social{width:100%; display:flex; justify-content:center}
+.content-section.about .about-social ul{list-style:none; display:flex; flex-direction:column; gap:10px; padding:0; margin:0; width:100%}
+.content-section.about .about-social a{display:block; padding:8px 14px; color:#000; text-decoration:none; background:linear-gradient(145deg, #fefefe, #d9d9d9); border:2px solid var(--dark); border-radius:8px; box-shadow:inset -1px -1px 0 var(--light), inset 1px 1px 0 rgba(0,0,0,0.2); text-align:center}
+.content-section.about .about-social a:focus-visible{outline:2px dashed var(--titlebar); outline-offset:3px}
+.content-section.about .about-social a:hover,
+.content-section.about .about-social a:focus{background:linear-gradient(145deg, var(--accent), #f1d85a)}
+.content-section.about .about-social a:active{box-shadow:inset 2px 2px 0 rgba(0,0,0,0.18); background:linear-gradient(145deg, #f1d85a, var(--accent-dim))}
 .content-section.about .about-blurb{display:flex; flex-direction:column; gap:12px; max-width:65ch; text-align:left}
 .content-section.about .about-columns{display:flex; flex-direction:column; gap:16px}
 .content-section.about .about-panels{flex:1; min-width:0}
@@ -111,6 +119,8 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 
 @media (min-width:640px){
   .content-section.about .about-hero{flex-direction:row; align-items:flex-start; gap:24px}
+  .content-section.about .about-portrait{align-items:center}
+  .content-section.about .about-social ul{align-items:stretch}
   .content-section.about .about-hero img{width:200px; flex:0 0 auto}
   .content-section.about .about-blurb{align-items:flex-start}
   .content-section.about .about-columns{flex-direction:row; align-items:flex-start}
