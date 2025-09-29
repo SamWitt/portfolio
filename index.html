@@ -286,31 +286,108 @@
 
 <template id="tpl-projects">
   <section class="content-section projects" aria-labelledby="projects-heading">
-    <h2 id="projects-heading">Highlighted Projects</h2>
-    <article>
-      <h3>Neon Avenue</h3>
-      <p>A branching visual novel where the score reshapes itself around player decisions.</p>
-      <ul>
-        <li>Interactive soundtrack built with vertical remixing.</li>
-        <li>Foley design and implementation inside FMOD.</li>
-      </ul>
-    </article>
-    <article>
-      <h3>Midnight Dispatch</h3>
-      <p>An award-winning investigative podcast narrated by rotating journalists.</p>
-      <ul>
-        <li>Theme composition and episodic underscore.</li>
-        <li>Dialogue edit, mix, and final mastering.</li>
-      </ul>
-    </article>
-    <article>
-      <h3>Beacon Run</h3>
-      <p>Stylized action platformer featuring reactive music tied to combo multipliers.</p>
-      <ul>
-        <li>Designed adaptive audio system using Wwise.</li>
-        <li>Produced over 120 unique sound effects.</li>
-      </ul>
-    </article>
+    <h2 id="projects-heading">Broadcast Placements</h2>
+    <div class="placements-columns">
+      <div class="placements-options" role="tablist" aria-orientation="vertical">
+        <button class="placements-option is-active"
+                role="tab"
+                id="placements-option-aurora"
+                type="button"
+                data-option="aurora"
+                aria-controls="placements-panel-aurora"
+                aria-selected="true"
+                aria-expanded="true">Aurora FM</button>
+
+        <button class="placements-option"
+                role="tab"
+                id="placements-option-coastal"
+                type="button"
+                data-option="coastal"
+                aria-controls="placements-panel-coastal"
+                aria-selected="false"
+                aria-expanded="false">Coastal Wave Radio</button>
+
+        <button class="placements-option"
+                role="tab"
+                id="placements-option-metro"
+                type="button"
+                data-option="metro"
+                aria-controls="placements-panel-metro"
+                aria-selected="false"
+                aria-expanded="false">Metro Pulse Network</button>
+
+        <button class="placements-option"
+                role="tab"
+                id="placements-option-starboard"
+                type="button"
+                data-option="starboard"
+                aria-controls="placements-panel-starboard"
+                aria-selected="false"
+                aria-expanded="false">Starboard Broadcasting</button>
+      </div>
+
+      <div class="placements-panels">
+        <section class="placements-panel is-active"
+                 id="placements-panel-aurora"
+                 data-option="aurora"
+                 role="tabpanel"
+                 aria-labelledby="placements-option-aurora">
+          <h3>Morning Skyline Magazine</h3>
+          <figure class="placements-figure">
+            <div class="placements-image" role="img" aria-label="Placeholder collage for Aurora FM morning show"></div>
+            <figcaption>Live interviews blended with commuter-friendly grooves to launch the day in Aurora&apos;s skyline.</figcaption>
+          </figure>
+          <p>Segment scoring includes gentle synth pads and rhythmic guitar swells that ebb between guest commentary, city news,
+          and sponsor stingers.</p>
+          <p>Aurora FM uses the cues to create a calm yet energetic morning tone that keeps listeners tuned during drive time.</p>
+        </section>
+
+        <section class="placements-panel"
+                 id="placements-panel-coastal"
+                 data-option="coastal"
+                 role="tabpanel"
+                 aria-labelledby="placements-option-coastal"
+                 hidden>
+          <h3>Tidepool Sessions</h3>
+          <figure class="placements-figure">
+            <div class="placements-image" role="img" aria-label="Placeholder stage shot for Coastal Wave Radio"></div>
+            <figcaption>Acoustic performances recorded aboard the station&apos;s floating studio anchored just off the pier.</figcaption>
+          </figure>
+          <p>Warm folk instrumentation underscores each session, weaving in subtle wave foley for an intimate waterfront ambience.</p>
+          <p>Promotional spots highlight the weekly residency schedule and upcoming artist collaborations.</p>
+        </section>
+
+        <section class="placements-panel"
+                 id="placements-panel-metro"
+                 data-option="metro"
+                 role="tabpanel"
+                 aria-labelledby="placements-option-metro"
+                 hidden>
+          <h3>City Beat Dispatch</h3>
+          <figure class="placements-figure">
+            <div class="placements-image" role="img" aria-label="Placeholder aerial map graphic for Metro Pulse Network"></div>
+            <figcaption>Breaking headlines and on-the-ground reporting from Metro Pulse&apos;s rapid response newsroom.</figcaption>
+          </figure>
+          <p>Driving percussion cues and modular synth beds support the quick-hit storytelling segments and traffic advisories.</p>
+          <p>Long-form features lean into moody noir textures for investigative coverage across the urban core.</p>
+        </section>
+
+        <section class="placements-panel"
+                 id="placements-panel-starboard"
+                 data-option="starboard"
+                 role="tabpanel"
+                 aria-labelledby="placements-option-starboard"
+                 hidden>
+          <h3>Starlight Cinema Hour</h3>
+          <figure class="placements-figure">
+            <div class="placements-image" role="img" aria-label="Placeholder projector reel for Starboard Broadcasting"></div>
+            <figcaption>Classic film retrospectives paired with lush orchestral reimaginings commissioned for evening broadcasts.</figcaption>
+          </figure>
+          <p>Symphonic motifs and shimmering arpeggios guide listeners through director commentary, trivia, and sponsor spots.</p>
+          <p>A late-night bump set introduces each screening block with a soaring leitmotif tailored for primetime movie lovers.</p>
+        </section>
+      </div>
+    </div>
   </section>
 </template>
 

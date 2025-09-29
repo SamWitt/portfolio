@@ -129,3 +129,20 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
   .content-section.publishers .publisher-columns{flex-direction:row; align-items:flex-start}
   .publisher-options{min-width:200px}
 }
+
+/* Placements window */
+.content-section.projects .placements-columns{display:flex; flex-direction:column; gap:16px}
+.content-section.projects .placements-panels{flex:1; min-width:0}
+.placements-options{display:flex; flex-direction:column; gap:8px; align-self:stretch; max-height:60vh; overflow-y:auto; padding-right:4px}
+.placements-option{padding:8px 12px; border:2px solid var(--dark); background:var(--win); text-align:left; cursor:pointer; font:inherit}
+.placements-option.is-active{background:var(--accent); border-color:var(--accent-dim)}
+.placements-option:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
+.placements-panel{display:none}
+.placements-panel.is-active{display:block}
+.placements-figure{margin:0 0 12px; display:grid; gap:8px}
+.placements-image{width:100%; aspect-ratio:3/2; border:2px dashed var(--dark); background:repeating-linear-gradient(135deg, rgba(0,0,0,.08) 0, rgba(0,0,0,.08) 16px, transparent 16px, transparent 32px); border-radius:8px}
+
+@media (min-width:720px){
+  .content-section.projects .placements-columns{flex-direction:row; align-items:flex-start}
+  .placements-options{min-width:220px}
+}
