@@ -109,6 +109,10 @@ tick(); setInterval(tick, 1000);
   desktop.addEventListener('mousedown', (e)=>{
     if(e.button!==0) return;
     if(e.target.closest('.icon, .window, .sticky-note, .taskbar, #startMenu')) return;
+    const active = document.activeElement;
+    if(active && active.classList && active.classList.contains('icon')){
+      active.blur();
+    }
     dragging=true; startX=e.clientX; startY=e.clientY;
     if(!e.shiftKey) document.querySelectorAll('.icon.selected').forEach(i=>i.classList.remove('selected'));
     marquee.style.left=startX+'px'; marquee.style.top=startY+'px'; marquee.style.width='0px'; marquee.style.height='0px'; marquee.style.display='block';
