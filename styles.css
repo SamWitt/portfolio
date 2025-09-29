@@ -1,5 +1,5 @@
 :root{
-  --desk: #ffeb3b; --win: #ececec; --light:#fff; --dark:#999; --darker:#555;
+  --desk: #5454d1; --win: #ececec; --light:#fff; --dark:#999; --darker:#555;
   --text:#000; --titlebar:#000080; --titlebar-inactive:#666;
   --titletext:#fff; --taskbar:#c0c0c0; --accent:#ffeb3b; --accent-dim:#d4c23d;
 }
