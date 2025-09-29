@@ -109,3 +109,23 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
   .content-section.about .about-columns{flex-direction:row; align-items:flex-start}
   .about-options{min-width:140px}
 }
+/* Publishers window */
+.content-section.publishers .publisher-columns{display:flex; flex-direction:column; gap:16px}
+.content-section.publishers .publisher-panels{flex:1; min-width:0}
+.publisher-options{display:flex; flex-direction:column; gap:8px; align-self:flex-start}
+.publisher-option{padding:8px 12px; border:2px solid var(--dark); background:var(--win); text-align:left; cursor:pointer; font:inherit}
+.publisher-option.is-active{background:var(--accent); border-color:var(--accent-dim)}
+.publisher-option:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
+.publisher-panel{display:none}
+.publisher-panel.is-active{display:block}
+.publisher-hero{display:flex; gap:16px; align-items:center; margin:0 0 16px}
+.publisher-hero figcaption{margin:0}
+.publisher-hero h3{margin:0 0 4px}
+.publisher-logo{width:96px; height:96px; border:2px solid var(--dark); border-radius:16px; background:var(--light); display:grid; place-items:center; flex:0 0 auto; overflow:hidden; box-shadow:inset -2px -2px 0 rgba(0,0,0,0.2)}
+.publisher-logo svg{width:100%; height:100%}
+.publishers-intro, .publishers-outro{max-width:62ch}
+
+@media (min-width:640px){
+  .content-section.publishers .publisher-columns{flex-direction:row; align-items:flex-start}
+  .publisher-options{min-width:200px}
+}
