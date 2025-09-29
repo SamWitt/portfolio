@@ -46,6 +46,7 @@ function makeWindow({title, tpl, x=140, y=90, w=420}){
   }
 
   bar.addEventListener('pointerdown', e=>{
+    if(e.target.closest('.controls')) return;
     if(e.pointerType==='mouse' && e.button!==0) return;
     if(pointerId!==null) return;
     pointerId=e.pointerId;
