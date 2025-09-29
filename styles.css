@@ -48,7 +48,8 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 }
 .icon .label {
   color:#fff;            /* 👈 white text (hard to see on yellow) */
-  font-size:12px;
+  font-family:"Atomic Age", cursive;
+  font-size:22px;
   text-shadow:1px 1px 0 #000;
   text-align:center;
 }
