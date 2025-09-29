@@ -63,7 +63,7 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 
 /* Windows */
 .window{position:absolute; min-width:320px; min-height:160px; max-width:min(90vw, 900px); max-height:calc(100vh - 80px); background:var(--win); border:2px solid var(--dark); box-shadow:4px 4px 0 var(--darker); border-top-color:var(--light); border-left-color:var(--light); border-right-color:var(--dark); border-bottom-color:var(--dark); resize: both; overflow: auto}
-.titlebar{display:flex; align-items:center; justify-content:space-between; padding:2px 6px; background:var(--titlebar); color:var(--titletext); cursor:move}
+.titlebar{display:flex; align-items:center; justify-content:space-between; padding:2px 6px; background:var(--titlebar); color:var(--titletext); cursor:move; touch-action:none}
 .titlebar.inactive{background:var(--titlebar-inactive)}
 .titlebar .title{display:flex; align-items:center; gap:6px}
 .titlebar .controls{display:flex; gap:2px}
