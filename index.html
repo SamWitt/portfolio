@@ -98,14 +98,32 @@
 <template id="tpl-about">
   <section class="content-section about" aria-labelledby="about-heading">
     <h2 id="about-heading">Instrumental Music for Media Composer</h2>
-    <p>Samuel Witt crafts vibrant, story-driven tracks for games, films, and experiential media. Each project begins with a collaborat
-ive deep dive to define tone, instrumentation, and the emotional story the music needs to support.</p>
-    <p>Currently working in his studio creating tracks for music libraries, independant artists, and production companies.</p>
-    <ul>
-      <li><strong>Expertise:</strong> Jazz/Funk, Electro Swing</li>
-      <li><strong>Toolbox:</strong> Logic Pro, Native Instruments, M2 Macbook, Adam A7x Monitors, a suite of top tier Virtual Instruments</li>
-      <li><strong>Approach:</strong> Communicative, First Principaled, Deep Context Listening.</li>
-    </ul>
+    <div class="about-columns">
+      <div class="about-options" role="tablist" aria-orientation="vertical">
+        <button class="about-option is-active" role="tab" id="about-option-origins" type="button" data-option="origins" aria-controls="about-panel-origins" aria-selected="true" aria-expanded="true">Origins</button>
+        <button class="about-option" role="tab" id="about-option-schooling" type="button" data-option="schooling" aria-controls="about-panel-schooling" aria-selected="false" aria-expanded="false">Schooling</button>
+        <button class="about-option" role="tab" id="about-option-career" type="button" data-option="career" aria-controls="about-panel-career" aria-selected="false" aria-expanded="false">Career</button>
+      </div>
+      <div class="about-panels">
+        <div class="about-panel is-active" id="about-panel-origins" data-option="origins" role="tabpanel" aria-labelledby="about-option-origins">
+          <p>Samuel Witt crafts vibrant, story-driven tracks for games, films, and experiential media. Each project begins with a collaborative deep dive to define tone, instrumentation, and the emotional story the music needs to support.</p>
+          <p>Currently working in his studio creating tracks for music libraries, independant artists, and production companies.</p>
+          <ul>
+            <li><strong>Expertise:</strong> Jazz/Funk, Electro Swing</li>
+            <li><strong>Toolbox:</strong> Logic Pro, Native Instruments, M2 Macbook, Adam A7x Monitors, a suite of top tier Virtual Instruments</li>
+            <li><strong>Approach:</strong> Communicative, First Principaled, Deep Context Listening.</li>
+          </ul>
+        </div>
+        <div class="about-panel" id="about-panel-schooling" data-option="schooling" role="tabpanel" aria-labelledby="about-option-schooling" hidden>
+          <p>Samuel's formal training includes conservatory coursework, ensemble direction, and a steady diet of late-night jam sessions that sharpened both ear and instinct.</p>
+          <p>Workshops and mentorships with seasoned arrangers continue to shape his harmonic language and orchestrational sensibility.</p>
+        </div>
+        <div class="about-panel" id="about-panel-career" data-option="career" role="tabpanel" aria-labelledby="about-option-career" hidden>
+          <p>From indie game studios to boutique agencies, Samuel partners with storytellers who value a collaborative musical voice.</p>
+          <p>Recent highlights include library releases, podcast sound design, and bespoke cues for experiential installations.</p>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -144,13 +162,80 @@ ive deep dive to define tone, instrumentation, and the emotional story the music
 <template id="tpl-publishers">
   <section class="content-section publishers" aria-labelledby="publishers-heading">
     <h2 id="publishers-heading">Publishers &amp; Libraries</h2>
-    <p>Samuel&apos;s catalog is represented by select publishers and curated libraries for sync licensing.</p>
-    <ul>
-      <li><strong>Atlas Audio Library</strong> &mdash; electronic and hybrid orchestral collections.</li>
-      <li><strong>Rosewood Scores</strong> &mdash; bespoke film and television placements.</li>
-      <li><strong>Pulse Sync</strong> &mdash; trailer-ready cues with flexible licensing options.</li>
-    </ul>
-    <p>For clearance details or custom requests, reach out via the contact window.</p>
+    <p class="publishers-intro">Samuel&apos;s catalog is represented by select publishers and curated libraries for sync licensing. Choose a partner to see a snapshot of their catalog focus and collaboration highlights.</p>
+    <div class="publisher-columns">
+      <div class="publisher-options" role="tablist" aria-orientation="vertical">
+        <button class="publisher-option is-active" role="tab" id="publisher-option-atlas" type="button" data-option="atlas" aria-controls="publisher-panel-atlas" aria-selected="true" aria-expanded="true">Atlas Audio Library</button>
+        <button class="publisher-option" role="tab" id="publisher-option-rosewood" type="button" data-option="rosewood" aria-controls="publisher-panel-rosewood" aria-selected="false" aria-expanded="false">Rosewood Scores</button>
+        <button class="publisher-option" role="tab" id="publisher-option-pulse" type="button" data-option="pulse" aria-controls="publisher-panel-pulse" aria-selected="false" aria-expanded="false">Pulse Sync</button>
+      </div>
+      <div class="publisher-panels">
+        <div class="publisher-panel is-active" id="publisher-panel-atlas" data-option="atlas" role="tabpanel" aria-labelledby="publisher-option-atlas">
+          <figure class="publisher-hero">
+            <div class="publisher-logo" role="img" aria-label="Atlas Audio Library placeholder logo">
+              <svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+                <defs>
+                  <linearGradient id="atlas-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#233979" />
+                    <stop offset="100%" stop-color="#5f8bd4" />
+                  </linearGradient>
+                </defs>
+                <rect x="4" y="4" width="88" height="88" rx="14" fill="url(#atlas-gradient)" />
+                <path d="M28 68L48 22l20 46h-9.6l-3.8-9H41.4l-3.8 9H28zm21-18.2h7.8L48 34.5l-6.8 15.3H49z" fill="#f6f8ff" />
+              </svg>
+            </div>
+            <figcaption>
+              <h3>Atlas Audio Library</h3>
+              <p>Electronic and hybrid orchestral collections with curated playlists across genres.</p>
+            </figcaption>
+          </figure>
+          <p>Atlas champions adventurous sound design that still feels grounded in melody. Their briefs lean into futuristic textures balanced with organic motifs, making them a natural fit for Samuel&apos;s hybrid compositions.</p>
+          <ul>
+            <li><strong>Collaboration highlights:</strong> Retrowave action cues, cinematic downtempo suites.</li>
+            <li><strong>Recent placements:</strong> Streaming series teasers, esports broadcast packages.</li>
+          </ul>
+        </div>
+        <div class="publisher-panel" id="publisher-panel-rosewood" data-option="rosewood" role="tabpanel" aria-labelledby="publisher-option-rosewood" hidden>
+          <figure class="publisher-hero">
+            <div class="publisher-logo" role="img" aria-label="Rosewood Scores placeholder logo">
+              <svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+                <rect x="6" y="6" width="84" height="84" rx="18" fill="#6a2d44" />
+                <path d="M28 70c12-14 18-21 30-34l10 10-30 32h-10V70zm28-36c-2.4 0-4.4-2-4.4-4.4 0-2.4 2-4.4 4.4-4.4s4.4 2 4.4 4.4c0 2.4-2 4.4-4.4 4.4z" fill="#fbe7ef" />
+              </svg>
+            </div>
+            <figcaption>
+              <h3>Rosewood Scores</h3>
+              <p>Bespoke film and television placements with an ear for acoustic warmth.</p>
+            </figcaption>
+          </figure>
+          <p>Rosewood curates intimate ensembles and richly orchestrated themes, pairing Samuel&apos;s harmonic sensibility with directors seeking emotional nuance.</p>
+          <ul>
+            <li><strong>Collaboration highlights:</strong> Chamber string ballads, piano-led dramatic cues.</li>
+            <li><strong>Recent placements:</strong> Prestige docu-series, festival-bound short films.</li>
+          </ul>
+        </div>
+        <div class="publisher-panel" id="publisher-panel-pulse" data-option="pulse" role="tabpanel" aria-labelledby="publisher-option-pulse" hidden>
+          <figure class="publisher-hero">
+            <div class="publisher-logo" role="img" aria-label="Pulse Sync placeholder logo">
+              <svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+                <rect x="8" y="8" width="80" height="80" rx="16" fill="#0c5a4a" />
+                <polyline points="20,58 34,46 42,54 54,34 62,42 76,30" fill="none" stroke="#9ef5d7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <figcaption>
+              <h3>Pulse Sync</h3>
+              <p>Trailer-ready cues with flexible licensing options for fast-moving campaigns.</p>
+            </figcaption>
+          </figure>
+          <p>Pulse Sync thrives on high-impact statements and momentum. Samuel&apos;s layered builds and rhythmic hooks power their catalog&apos;s adrenaline-fueled playlists.</p>
+          <ul>
+            <li><strong>Collaboration highlights:</strong> Percussive hybrid anthems, tension risers.</li>
+            <li><strong>Recent placements:</strong> Game launch promos, blockbuster trailer spots.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="publishers-outro">For clearance details or custom requests, reach out via the contact window.</p>
   </section>
 </template>
 
