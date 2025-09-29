@@ -31,6 +31,9 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
   height:64px;
   image-rendering:pixelated;
   object-fit:contain;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 .icon svg {
   stroke:#fff;           /* 👈 white stroke (hard to see on yellow) */
