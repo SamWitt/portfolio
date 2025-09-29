@@ -70,12 +70,70 @@ function createNote({x=260,y=100,w=220,h=160,text='New note…'}={}){
 // Icon drag + dblclick handlers
 document.querySelectorAll('.icon').forEach(icon => {
   let dragging=false, moved=false, offsetX=0, offsetY=0;
-  icon.addEventListener('mousedown', e=>{
-    dragging=true; moved=false; offsetX=e.clientX-icon.offsetLeft; offsetY=e.clientY-icon.offsetTop; icon.style.zIndex=1000;
-    const mv=(e)=>{ if(!dragging) return; icon.style.left=e.clientX-offsetX+'px'; icon.style.top=e.clientY-offsetY+'px'; moved=true; };
-    const up=()=>{ dragging=false; window.removeEventListener('mousemove', mv); window.removeEventListener('mouseup', up); };
-    window.addEventListener('mousemove', mv); window.addEventListener('mouseup', up);
+  let pointerId=null, longPressTimer=null;
+
+  const startDrag = () => {
+    if(dragging || pointerId===null) return;
+    dragging=true;
+    moved=false;
+    icon.style.zIndex=1000;
+    cancelTimer();
+    icon.setPointerCapture?.(pointerId);
+  };
+  const cancelTimer = () => {
+    if(longPressTimer){
+      clearTimeout(longPressTimer);
+      longPressTimer=null;
+    }
+  };
+  const endDrag = () => {
+    cancelTimer();
+    if(pointerId!==null && icon.hasPointerCapture?.(pointerId)){
+      icon.releasePointerCapture(pointerId);
+    }
+    dragging=false;
+    pointerId=null;
+  };
+  const mv = (e)=>{
+    if(!dragging || e.pointerId!==pointerId) return;
+    e.preventDefault();
+    icon.style.left=e.clientX-offsetX+'px';
+    icon.style.top=e.clientY-offsetY+'px';
+    moved=true;
+  };
+
+  icon.addEventListener('pointerdown', e=>{
+    if(e.pointerType==='mouse' && e.button!==0) return;
+    if(pointerId!==null) return;
+    pointerId=e.pointerId;
+    offsetX=e.clientX-icon.offsetLeft;
+    offsetY=e.clientY-icon.offsetTop;
+    moved=false;
+    if(typeof icon.focus==='function'){
+      try {
+        icon.focus({preventScroll:true});
+      } catch (err) {
+        icon.focus();
+      }
+    }
+    cancelTimer();
+
+    const begin = ()=>{
+      if(pointerId!==e.pointerId) return;
+      startDrag();
+    };
+
+    if(e.pointerType==='mouse'){
+      begin();
+    } else {
+      longPressTimer=setTimeout(begin, 300);
+    }
   });
+  icon.addEventListener('pointermove', mv);
+  icon.addEventListener('pointerup', e=>{ if(e.pointerId===pointerId) endDrag(); });
+  icon.addEventListener('pointercancel', e=>{ if(e.pointerId===pointerId) endDrag(); });
+
+  icon.addEventListener('lostpointercapture', ()=>{ dragging=false; pointerId=null; cancelTimer(); });
   icon.addEventListener('dblclick', e=>{
     if(moved) return;
     if(icon.classList.contains('sticky')){ createNote(); return; }
@@ -98,7 +156,7 @@ tick(); setInterval(tick, 1000);
 // Marquee selection
 (function(){
   const marquee = document.getElementById('marquee');
-  let startX=0, startY=0, dragging=false;
+  let startX=0, startY=0, dragging=false, pointerId=null, longPressTimer=null, shiftPressed=false;
 
   function rectFromPoints(x1,y1,x2,y2){
     const left=Math.min(x1,x2), top=Math.min(y1,y2), width=Math.abs(x2-x1), height=Math.abs(y2-y1);
@@ -106,29 +164,68 @@ tick(); setInterval(tick, 1000);
   }
   function intersects(r,a){ return !(a.left>r.right || a.right<r.left || a.top>r.bottom || a.bottom<r.top); }
 
-  desktop.addEventListener('mousedown', (e)=>{
-    if(e.button!==0) return;
+  const cancelTimer = () => {
+    if(longPressTimer){
+      clearTimeout(longPressTimer);
+      longPressTimer=null;
+    }
+  };
+  const beginSelection = () => {
+    if(dragging || pointerId===null) return;
+    dragging=true;
+    cancelTimer();
+    desktop.setPointerCapture?.(pointerId);
+    if(!shiftPressed){
+      document.querySelectorAll('.icon.selected').forEach(i=>i.classList.remove('selected'));
+    }
+    marquee.style.left=startX+'px'; marquee.style.top=startY+'px';
+    marquee.style.width='0px'; marquee.style.height='0px'; marquee.style.display='block';
+  };
+  const endSelection = (e) => {
+    if(e.pointerId!==pointerId) return;
+    cancelTimer();
+    if(dragging){
+      dragging=false;
+      marquee.style.display='none';
+      if(desktop.hasPointerCapture?.(pointerId)) desktop.releasePointerCapture(pointerId);
+    }
+    pointerId=null;
+  };
+
+  desktop.addEventListener('pointerdown', (e)=>{
+    if(e.pointerType==='mouse' && e.button!==0) return;
+    if(pointerId!==null) return;
     if(e.target.closest('.icon, .window, .sticky-note, .taskbar, #startMenu')) return;
+    pointerId=e.pointerId;
+    startX=e.clientX; startY=e.clientY;
+    shiftPressed=e.shiftKey;
     const active = document.activeElement;
     if(active && active.classList && active.classList.contains('icon')){
       active.blur();
     }
-    dragging=true; startX=e.clientX; startY=e.clientY;
-    if(!e.shiftKey) document.querySelectorAll('.icon.selected').forEach(i=>i.classList.remove('selected'));
-    marquee.style.left=startX+'px'; marquee.style.top=startY+'px'; marquee.style.width='0px'; marquee.style.height='0px'; marquee.style.display='block';
-    e.preventDefault();
+    cancelTimer();
+    const begin = ()=>{ if(pointerId===e.pointerId) beginSelection(); };
+    if(e.pointerType==='mouse'){
+      begin();
+    } else {
+      longPressTimer=setTimeout(begin, 300);
+    }
   });
-  window.addEventListener('mousemove', (e)=>{
-    if(!dragging) return;
+  desktop.addEventListener('pointermove', (e)=>{
+    if(!dragging || e.pointerId!==pointerId) return;
+    e.preventDefault();
     const r = rectFromPoints(startX,startY,e.clientX,e.clientY);
-    marquee.style.left=r.left+'px'; marquee.style.top=r.top+'px'; marquee.style.width=r.width+'px'; marquee.style.height=r.height+'px';
+    marquee.style.left=r.left+'px'; marquee.style.top=r.top+'px';
+    marquee.style.width=r.width+'px'; marquee.style.height=r.height+'px';
     document.querySelectorAll('.icon').forEach(icon=>{
       const b = icon.getBoundingClientRect();
       const ir = {left:b.left, top:b.top, right:b.right, bottom:b.bottom};
-      if(intersects(r, ir)) icon.classList.add('selected'); else if(!e.shiftKey) icon.classList.remove('selected');
+      if(intersects(r, ir)) icon.classList.add('selected');
+      else if(!shiftPressed) icon.classList.remove('selected');
     });
   });
-  window.addEventListener('mouseup', ()=>{ if(!dragging) return; dragging=false; marquee.style.display='none'; });
+  desktop.addEventListener('pointerup', endSelection);
+  desktop.addEventListener('pointercancel', endSelection);
 })();
 
 // Start button + menu
