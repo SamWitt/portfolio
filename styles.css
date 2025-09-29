@@ -11,6 +11,10 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 .wallpaper{position:absolute; inset:0; background:var(--desk);}
 
 /* Desktop icons */
+.desktop, .icon {
+  touch-action:none;
+}
+
 .icon {
   position:absolute;
   width:80px;

@@ -77,6 +77,7 @@ document.querySelectorAll('.icon').forEach(icon => {
     dragging=true;
     moved=false;
     icon.style.zIndex=1000;
+    icon.style.touchAction='none';
     cancelTimer();
     icon.setPointerCapture?.(pointerId);
   };
@@ -93,6 +94,7 @@ document.querySelectorAll('.icon').forEach(icon => {
     }
     dragging=false;
     pointerId=null;
+    icon.style.touchAction='';
   };
   const mv = (e)=>{
     if(!dragging || e.pointerId!==pointerId) return;
