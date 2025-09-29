@@ -94,3 +94,18 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 .sticky-btn{padding:6px 10px; border:2px solid #ccc; background:#eee; color:#000; border-radius:2px; cursor:pointer}
 .sticky-list{font-size:10px; color:#555}
 .sticky-list code{color:#000}
+
+/* About window */
+.content-section.about .about-columns{display:flex; flex-direction:column; gap:16px}
+.content-section.about .about-panels{flex:1; min-width:0}
+.about-options{display:flex; flex-direction:column; gap:8px; align-self:flex-start}
+.about-option{padding:8px 12px; border:2px solid var(--dark); background:var(--win); text-align:left; cursor:pointer; font:inherit}
+.about-option.is-active{background:var(--accent); border-color:var(--accent-dim)}
+.about-option:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
+.about-panel{display:none}
+.about-panel.is-active{display:block}
+
+@media (min-width:640px){
+  .content-section.about .about-columns{flex-direction:row; align-items:flex-start}
+  .about-options{min-width:140px}
+}
