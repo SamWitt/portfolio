@@ -14,10 +14,61 @@ function makeWindow({title, tpl, x=140, y=90, w=420}){
 
   // titlebar drag
   const bar = node.querySelector('.titlebar');
-  let dragging=false, offX=0, offY=0;
-  const move=(e)=>{ if(!dragging) return; node.style.left = Math.max(0, e.clientX-offX)+'px'; node.style.top = Math.max(0, e.clientY-offY)+'px'; };
-  const up=()=>{ dragging=false; window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
-  bar.addEventListener('mousedown', e=>{ dragging=true; offX=e.clientX-node.offsetLeft; offY=e.clientY-node.offsetTop; bringToFront(node); e.preventDefault(); window.addEventListener('mousemove', move); window.addEventListener('mouseup', up); });
+  let dragging=false, offX=0, offY=0, pointerId=null, longPressTimer=null;
+  const cancelTimer = () => {
+    if(longPressTimer){
+      clearTimeout(longPressTimer);
+      longPressTimer=null;
+    }
+  };
+  const startDrag = () => {
+    if(dragging || pointerId===null) return;
+    dragging=true;
+    cancelTimer();
+    bringToFront(node);
+    bar.style.touchAction='none';
+    bar.setPointerCapture?.(pointerId);
+  };
+  const endDrag = (e) => {
+    if(e.pointerId!==pointerId) return;
+    cancelTimer();
+    if(bar.hasPointerCapture?.(pointerId)){
+      bar.releasePointerCapture(pointerId);
+    }
+    dragging=false;
+    pointerId=null;
+    bar.style.touchAction='';
+  };
+  const move=(e)=>{
+    if(!dragging || e.pointerId!==pointerId) return;
+    node.style.left = Math.max(0, e.clientX-offX)+'px';
+    node.style.top = Math.max(0, e.clientY-offY)+'px';
+  };
+  bar.addEventListener('pointerdown', e=>{
+    if(e.pointerType==='mouse' && e.button!==0) return;
+    if(pointerId!==null) return;
+    pointerId=e.pointerId;
+    offX=e.clientX-node.offsetLeft;
+    offY=e.clientY-node.offsetTop;
+    if(e.pointerType==='mouse'){
+      e.preventDefault();
+      startDrag();
+    } else {
+      cancelTimer();
+      longPressTimer=setTimeout(()=>{
+        if(pointerId===e.pointerId) startDrag();
+      }, 300);
+    }
+  });
+  bar.addEventListener('pointermove', move);
+  bar.addEventListener('pointerup', e=>{ endDrag(e); });
+  bar.addEventListener('pointercancel', e=>{ endDrag(e); });
+  bar.addEventListener('lostpointercapture', ()=>{
+    cancelTimer();
+    dragging=false;
+    pointerId=null;
+    bar.style.touchAction='';
+  });
 
   // controls
   node.querySelector('.btn-close').addEventListener('click', ()=> { node.remove(); tb.remove(); });
