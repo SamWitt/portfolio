@@ -204,27 +204,33 @@ function initPublishersWindow(windowEl){
   });
 }
 
+// Canonical initializer that supports both naming schemes
 function initProjectsWindow(windowEl){
+  if (!windowEl) return;
   initTabbedWindow(windowEl, {
-    optionSelector: '.placements-option',
-    panelSelector: '.placements-panel'
+    // support either .placements-* (new) or .project-* (old)
+    optionSelector: '.placements-option, .project-option',
+    panelSelector:  '.placements-panel,  .project-panel'
   });
 }
+
+// Optional alias: keep compatibility if some code calls the other name
+const initPlacementsWindow = initProjectsWindow;
 
 /* ------- Openers ------- */
 const openers = {
   about: () => {
     const win = makeWindow({ title: 'About', tpl: 'tpl-about', x: 200, y: 100 });
-    initAboutWindow(win);
+    if (typeof initAboutWindow === 'function') initAboutWindow(win);
     return win;
   },
 
   music: () => makeWindow({ title: 'Music', tpl: 'tpl-music', x: 260, y: 120, w: 520 }),
 
-  // Keep the Projects opener + initializer; use wider layout from the feature branch
+  // Projects window (can be labeled "Placements" in the UI if you prefer)
   projects: () => {
     const win = makeWindow({ title: 'Projects', tpl: 'tpl-projects', x: 240, y: 140, w: 520 });
-    if (typeof initProjectsWindow === 'function') initProjectsWindow(win); // safe-guard
+    if (typeof initProjectsWindow === 'function') initProjectsWindow(win); // robust either way
     return win;
   },
 
@@ -233,10 +239,11 @@ const openers = {
 
   publishers: () => {
     const win = makeWindow({ title: 'Publishers', tpl: 'tpl-publishers', x: 220, y: 200, w: 440 });
-    if (typeof initPublishersWindow === 'function') initPublishersWindow(win); // safe-guard
+    if (typeof initPublishersWindow === 'function') initPublishersWindow(win);
     return win;
   }
 };
+
 
 
 // Sticky Notes
