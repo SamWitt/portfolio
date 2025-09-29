@@ -138,6 +138,7 @@ document.querySelectorAll('.icon').forEach(icon => {
     dragging=false;
     pointerId=null;
     icon.style.touchAction='';
+    icon.style.zIndex='';
   };
   const mv = (e)=>{
     if(!dragging || e.pointerId!==pointerId) return;
@@ -178,7 +179,13 @@ document.querySelectorAll('.icon').forEach(icon => {
   icon.addEventListener('pointerup', e=>{ if(e.pointerId===pointerId) endDrag(); });
   icon.addEventListener('pointercancel', e=>{ if(e.pointerId===pointerId) endDrag(); });
 
-  icon.addEventListener('lostpointercapture', ()=>{ dragging=false; pointerId=null; cancelTimer(); });
+  icon.addEventListener('lostpointercapture', ()=>{
+    dragging=false;
+    pointerId=null;
+    cancelTimer();
+    icon.style.zIndex='';
+    icon.style.touchAction='';
+  });
   icon.addEventListener('dblclick', e=>{
     if(moved) return;
     if(icon.classList.contains('sticky')){ createNote(); return; }
