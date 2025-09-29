@@ -16,13 +16,28 @@
 <!-- Desktop Icons -->
 <div class="icon about" tabindex="0" role="button" aria-label="About"> 
   <img src="assets/img/About.png" alt="" /> <div class="label">About</div> </div>
-<div class="icon music" tabindex="0" role="button" aria-label="Music"> ... </div>
-<div class="icon projects" tabindex="0" role="button" aria-label="Projects"> ... </div>
-<div class="icon contact" tabindex="0" role="button" aria-label="Contact"> ... </div>
+<div class="icon music" tabindex="0" role="button" aria-label="Music">
+  <img src="assets/img/Listen.png" alt="" />
+  <div class="label">Music</div>
+</div>
+<div class="icon projects" tabindex="0" role="button" aria-label="Projects">
+  <img src="assets/img/Placements.png" alt="" />
+  <div class="label">Projects</div>
+</div>
+<div class="icon contact" tabindex="0" role="button" aria-label="Contact">
+  <img src="assets/img/Contact.png" alt="" />
+  <div class="label">Contact</div>
+</div>
 <div class="icon sticky" tabindex="0" role="button" aria-label="Sticky Notes">
   <img src="assets/img/Stickynotes.png" alt="" /> <div class="label">Sticky Notes </div> </div>
-<div class="icon collaborators" tabindex="0" role="button" aria-label="Collaborators"> ... </div>
-<div class="icon publishers" tabindex="0" role="button" aria-label="Publishers"> ... </div>
+<div class="icon collaborators" tabindex="0" role="button" aria-label="Collaborators">
+  <img src="assets/img/About.png" alt="" />
+  <div class="label">Collaborators</div>
+</div>
+<div class="icon publishers" tabindex="0" role="button" aria-label="Publishers">
+  <img src="assets/img/Placements.png" alt="" />
+  <div class="label">Publishers</div>
+</div>
 
 
 <!-- Taskbar -->
@@ -35,17 +50,156 @@
 
 
 <!-- Start menu -->
-<div class="start-menu" id="startMenu" role="menu" aria-label="Start menu"> ... </div>
+<div class="start-menu" id="startMenu" role="menu" aria-label="Start menu">
+  <header>Samuel Witt</header>
+  <div class="item" role="menuitem" data-open="about">
+    <span>About</span>
+  </div>
+  <div class="item" role="menuitem" data-open="music">
+    <span>Music</span>
+  </div>
+  <div class="item" role="menuitem" data-open="projects">
+    <span>Projects</span>
+  </div>
+  <div class="item" role="menuitem" data-open="contact">
+    <span>Contact</span>
+  </div>
+  <div class="item" role="menuitem" data-open="collaborators">
+    <span>Collaborators</span>
+  </div>
+  <div class="item" role="menuitem" data-open="publishers">
+    <span>Publishers</span>
+  </div>
+  <div class="hr" role="separator"></div>
+  <div class="item" role="menuitem" data-sticky="new">
+    <span>New Sticky Note</span>
+  </div>
+  <div class="item" role="menuitem" data-cmd="closeAll">
+    <span>Close All Windows</span>
+  </div>
+</div>
 
 
 <!-- Window + content templates -->
-<template id="tpl-window"> ... </template>
-<template id="tpl-about"> ... </template>
-<template id="tpl-collaborators"> ... </template>
-<template id="tpl-music"> ... </template>
-<template id="tpl-publishers"> ... </template>
-<template id="tpl-projects"> ... </template>
-<template id="tpl-contact"> ... </template>
+<template id="tpl-window">
+  <div class="window" role="dialog" aria-modal="false">
+    <div class="titlebar">
+      <div class="title"><span></span></div>
+      <div class="controls">
+        <button class="btn btn-min" type="button" aria-label="Minimize">_</button>
+        <button class="btn btn-max" type="button" aria-label="Maximize">□</button>
+        <button class="btn btn-close" type="button" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="content" role="document"></div>
+  </div>
+</template>
+
+<template id="tpl-about">
+  <section class="content-section about" aria-labelledby="about-heading">
+    <h2 id="about-heading">Composer &amp; Sound Designer</h2>
+    <p>Samuel Witt crafts vibrant, story-driven scores for games, films, and experiential media. Each project begins with a collaborat
+ive deep dive to define tone, instrumentation, and the emotional arc the music needs to support.</p>
+    <p>From interactive music systems that react to player choice to cinematic themes that anchor a brand campaign, Samuel delivers aur
+al identities that feel unmistakably tailored.</p>
+    <ul>
+      <li><strong>Expertise:</strong> orchestral hybrid composition, adaptive scoring, and sound design.</li>
+      <li><strong>Toolbox:</strong> Ableton Live, Reaper, Kontakt, modular synths, and a growing collection of world instruments.</li>
+      <li><strong>Approach:</strong> collaborative, iteration-friendly workflows with clear communication at every milestone.</li>
+    </ul>
+  </section>
+</template>
+
+<template id="tpl-collaborators">
+  <section class="content-section collaborators" aria-labelledby="collaborators-heading">
+    <h2 id="collaborators-heading">Creative Collaborators</h2>
+    <p>Trusted partners who regularly bring Samuel in to elevate their soundtracks and sonic identities.</p>
+    <ul>
+      <li><strong>Northwind Interactive</strong> &mdash; immersive game studio crafting narrative adventures.</li>
+      <li><strong>Studio Kilo</strong> &mdash; experiential agency producing pop-up installations and branded experiences.</li>
+      <li><strong>Echo Chamber Films</strong> &mdash; boutique production house focused on social impact documentaries.</li>
+      <li><strong>Signal Foundry</strong> &mdash; podcast collective where Samuel leads audio direction and mastering.</li>
+    </ul>
+  </section>
+</template>
+
+<template id="tpl-music">
+  <section class="content-section music" aria-labelledby="music-heading">
+    <h2 id="music-heading">Featured Music</h2>
+    <p>Press play for a recent release, then explore a handful of cues demonstrating Samuel&apos;s range across media.</p>
+    <figure>
+      <figcaption>"Talk About It" &mdash; uptempo synthwave single</figcaption>
+      <audio controls preload="metadata" src="assets/audio/Talk About It.mp3">
+        Your browser does not support the audio element. Download the track <a href="assets/audio/Talk About It.mp3">here</a>.
+      </audio>
+    </figure>
+    <h3>Recent cues</h3>
+    <ol>
+      <li><strong>Skyline Drift</strong> &mdash; dynamic racing game score with adaptive stems.</li>
+      <li><strong>Room to Grow</strong> &mdash; intimate documentary theme featuring live strings.</li>
+      <li><strong>Signal Flare</strong> &mdash; podcast intro built around analog synth textures.</li>
+    </ol>
+  </section>
+</template>
+
+<template id="tpl-publishers">
+  <section class="content-section publishers" aria-labelledby="publishers-heading">
+    <h2 id="publishers-heading">Publishers &amp; Libraries</h2>
+    <p>Samuel&apos;s catalog is represented by select publishers and curated libraries for sync licensing.</p>
+    <ul>
+      <li><strong>Atlas Audio Library</strong> &mdash; electronic and hybrid orchestral collections.</li>
+      <li><strong>Rosewood Scores</strong> &mdash; bespoke film and television placements.</li>
+      <li><strong>Pulse Sync</strong> &mdash; trailer-ready cues with flexible licensing options.</li>
+    </ul>
+    <p>For clearance details or custom requests, reach out via the contact window.</p>
+  </section>
+</template>
+
+<template id="tpl-projects">
+  <section class="content-section projects" aria-labelledby="projects-heading">
+    <h2 id="projects-heading">Highlighted Projects</h2>
+    <article>
+      <h3>Neon Avenue</h3>
+      <p>A branching visual novel where the score reshapes itself around player decisions.</p>
+      <ul>
+        <li>Interactive soundtrack built with vertical remixing.</li>
+        <li>Foley design and implementation inside FMOD.</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Midnight Dispatch</h3>
+      <p>An award-winning investigative podcast narrated by rotating journalists.</p>
+      <ul>
+        <li>Theme composition and episodic underscore.</li>
+        <li>Dialogue edit, mix, and final mastering.</li>
+      </ul>
+    </article>
+    <article>
+      <h3>Beacon Run</h3>
+      <p>Stylized action platformer featuring reactive music tied to combo multipliers.</p>
+      <ul>
+        <li>Designed adaptive audio system using Wwise.</li>
+        <li>Produced over 120 unique sound effects.</li>
+      </ul>
+    </article>
+  </section>
+</template>
+
+<template id="tpl-contact">
+  <section class="content-section contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Let&apos;s Collaborate</h2>
+    <p>Whether you&apos;re building a new world or polishing a final cut, Samuel is ready to craft the sonic language your story deserves.</p>
+    <dl>
+      <dt>Email</dt>
+      <dd><a href="mailto:hello@samuelwitt.com">hello@samuelwitt.com</a></dd>
+      <dt>Phone</dt>
+      <dd><a href="tel:+13175551234">+1 (317) 555-1234</a></dd>
+      <dt>Studio</dt>
+      <dd>Indianapolis, IN &mdash; collaborating worldwide.</dd>
+    </dl>
+    <p>Include project scope, timeline, and any reference tracks when reaching out so Samuel can respond with tailored ideas and availability.</p>
+  </section>
+</template>
 
 
 <script src="script.js" defer></script>
