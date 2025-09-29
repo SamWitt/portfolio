@@ -2,6 +2,62 @@
 const desktop = document.getElementById('desktop');
 const tasks = document.getElementById('tasks');
 
+const GRID_SIZE = 20;
+
+const snapToGrid = (value) => Math.round(value / GRID_SIZE) * GRID_SIZE;
+const alignToGridStart = (value) => Math.floor(value / GRID_SIZE) * GRID_SIZE;
+
+function autoLayoutIcons(){
+  const icons = Array.from(document.querySelectorAll('.icon'));
+  if(!icons.length) return;
+
+  const order = new Map();
+  icons.forEach((icon, index)=> order.set(icon, index));
+
+  const minLeft = icons.reduce((min, icon)=> Math.min(min, icon.offsetLeft), Infinity);
+  const minTop = icons.reduce((min, icon)=> Math.min(min, icon.offsetTop), Infinity);
+
+  const baseLeft = alignToGridStart(Number.isFinite(minLeft) ? minLeft : 0);
+  const baseTop = alignToGridStart(Number.isFinite(minTop) ? minTop : 0);
+
+  const sample = icons[0];
+  const iconWidth = sample.offsetWidth;
+  const iconHeight = sample.offsetHeight;
+
+  const stepX = Math.max(GRID_SIZE, snapToGrid(iconWidth + GRID_SIZE));
+  const stepY = Math.max(GRID_SIZE, snapToGrid(iconHeight + GRID_SIZE));
+
+  const viewportHeight = window.innerHeight;
+  const maxBottom = viewportHeight - GRID_SIZE;
+
+  let currentLeft = baseLeft;
+  let currentTop = baseTop;
+
+  icons
+    .sort((a,b)=>{
+      const diffTop = a.offsetTop - b.offsetTop;
+      if(Math.abs(diffTop) > 0.5) return diffTop;
+      const diffLeft = a.offsetLeft - b.offsetLeft;
+      if(Math.abs(diffLeft) > 0.5) return diffLeft;
+      return order.get(a) - order.get(b);
+    })
+    .forEach(icon=>{
+      if(currentTop + iconHeight > maxBottom){
+        currentLeft += stepX;
+        currentTop = baseTop;
+      }
+      icon.style.left = snapToGrid(currentLeft)+'px';
+      icon.style.top = snapToGrid(currentTop)+'px';
+      currentTop += stepY;
+    });
+}
+
+function snapIconToGrid(icon){
+  if(!icon) return;
+  icon.style.left = snapToGrid(icon.offsetLeft)+'px';
+  icon.style.top = snapToGrid(icon.offsetTop)+'px';
+}
+
 // Window factory
 let z = 10;
 function bringToFront(win){ win.style.zIndex = ++z; }
@@ -140,6 +196,9 @@ document.querySelectorAll('.icon').forEach(icon => {
     pointerId=null;
     icon.style.touchAction='';
     icon.style.zIndex='';
+    if(moved){
+      snapIconToGrid(icon);
+    }
   };
   const mv = (e)=>{
     if(!dragging || e.pointerId!==pointerId) return;
@@ -201,6 +260,12 @@ document.querySelectorAll('.icon').forEach(icon => {
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', autoLayoutIcons);
+if(document.readyState!=='loading'){
+  autoLayoutIcons();
+}
+window.addEventListener('resize', autoLayoutIcons);
 
 // Tiny clock
 function tick(){ const d=new Date(); document.getElementById('clock').textContent=d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
