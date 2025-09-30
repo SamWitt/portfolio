@@ -79,6 +79,7 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 
 /* Start menu */
 .start-menu{position:fixed; left:6px; bottom:36px; width:220px; background:#f0f0f0; border:2px solid var(--dark); border-top-color:var(--light); border-left-color:var(--light); box-shadow:4px 4px 0 var(--darker); display:none; z-index:9999}
+.start-menu .start-blurb{padding:10px 12px 8px; font-size:12px; line-height:1.4; margin:0; border-bottom:1px solid #ccc}
 .start-menu header{background:var(--titlebar); color:var(--titletext); padding:4px 6px; font-weight:700; border-bottom:1px solid #335}
 .start-menu .item{display:flex; align-items:center; gap:8px; padding:8px; cursor:pointer}
 .start-menu .item:hover{background:#dcdcdc}
