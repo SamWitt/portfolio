@@ -199,6 +199,29 @@ function initPlacementsCarousel(windowEl){
   const slides = track ? Array.from(track.querySelectorAll('.placements-slide')) : [];
   if(!slides.length) return false;
 
+  const getSlideImage = (slide) => slide?.querySelector('.placements-image, img') || null;
+  const getSlideLabel = (slide, index) => {
+    const fallback = `Slide ${index + 1}`;
+    if(!slide) return fallback;
+
+    const image = getSlideImage(slide);
+    const alt = image?.getAttribute('alt')?.trim();
+    if(alt){
+      if(slide.getAttribute('aria-label') !== alt){
+        slide.setAttribute('aria-label', alt);
+      }
+      return alt;
+    }
+
+    const ariaLabel = slide.getAttribute('aria-label')?.trim();
+    if(ariaLabel) return ariaLabel;
+
+    const dataTitle = slide.dataset.title?.trim();
+    if(dataTitle) return dataTitle;
+
+    return fallback;
+  };
+
   const prevBtn = carousel.querySelector('.placements-prev');
   const nextBtn = carousel.querySelector('.placements-next');
   const dotsContainer = carousel.querySelector('.placements-dots');
@@ -220,8 +243,7 @@ function initPlacementsCarousel(windowEl){
       dot.setAttribute('aria-selected', 'false');
       dot.setAttribute('tabindex', '-1');
 
-      const heading = slide.querySelector('h3')?.textContent?.trim();
-      const label = heading || slide.dataset.title || `Slide ${index + 1}`;
+      const label = getSlideLabel(slide, index);
       dot.textContent = label;
       dot.setAttribute('aria-label', label);
 
@@ -242,10 +264,7 @@ function initPlacementsCarousel(windowEl){
 
   const updateStatus = () => {
     if(!status) return;
-    const title = slides[current]?.dataset.title
-      || slides[current]?.getAttribute('aria-label')
-      || slides[current]?.querySelector('h3')?.textContent?.trim()
-      || '';
+    const title = getSlideLabel(slides[current], current);
     const suffix = title ? ` — ${title}` : '';
     status.textContent = `Slide ${current + 1} of ${total}${suffix}`;
   };
