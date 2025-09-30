@@ -158,13 +158,13 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 .placements-figure{margin:0; display:grid; gap:8px}
 .placements-image{display:block; width:auto; height:auto; max-width:100%; border-radius:8px}
 .placements-image:not(img){aspect-ratio:3/2; border:2px dashed var(--dark); background:repeating-linear-gradient(135deg, rgba(0,0,0,.08) 0, rgba(0,0,0,.08) 16px, transparent 16px, transparent 32px)}
-.placements-controls{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.placements-controls{display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap}
 .placements-control{width:36px; height:36px; border:2px solid var(--dark); border-radius:50%; background:var(--accent); font-size:20px; line-height:1; cursor:pointer; display:grid; place-items:center; transition:background 150ms ease, transform 150ms ease}
 .placements-control:disabled{opacity:.4; cursor:default}
 .placements-control:hover:not(:disabled),
 .placements-control:focus-visible:not(:disabled){background:var(--accent-dim)}
 .placements-control:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
-.placements-dots{display:flex; align-items:center; justify-content:center; gap:8px; flex:1; min-width:200px}
+.placements-dots{display:none}
 .placements-dot{padding:6px 12px; border:2px solid var(--dark); border-radius:999px; background:var(--win); cursor:pointer; font:inherit; font-size:12px; line-height:1.2; white-space:nowrap; transition:background 150ms ease, transform 150ms ease}
 .placements-dot.is-active{background:var(--accent); border-color:var(--accent-dim); transform:translateY(-1px)}
 .placements-dot:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
