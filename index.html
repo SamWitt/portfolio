@@ -312,51 +312,15 @@
 <template id="tpl-projects">
   <section class="content-section projects" aria-labelledby="projects-heading">
     <h2 id="projects-heading">Broadcast Placements</h2>
-    <div class="placements-columns">
-      <div class="placements-options" role="tablist" aria-orientation="vertical">
-        <button class="placements-option is-active"
-                role="tab"
-                id="placements-option-HBOMax"
-                type="button"
-                data-option="HBOMax"
-                aria-controls="placements-panel-HBOMax"
-                aria-selected="true"
-                aria-expanded="true">HBO Max</button>
-
-        <button class="placements-option"
-                role="tab"
-                id="placements-option-coastal"
-                type="button"
-                data-option="coastal"
-                aria-controls="placements-panel-coastal"
-                aria-selected="false"
-                aria-expanded="false">Coastal Wave Radio</button>
-
-        <button class="placements-option"
-                role="tab"
-                id="placements-option-metro"
-                type="button"
-                data-option="metro"
-                aria-controls="placements-panel-metro"
-                aria-selected="false"
-                aria-expanded="false">Metro Pulse Network</button>
-
-        <button class="placements-option"
-                role="tab"
-                id="placements-option-starboard"
-                type="button"
-                data-option="starboard"
-                aria-controls="placements-panel-starboard"
-                aria-selected="false"
-                aria-expanded="false">Starboard Broadcasting</button>
-      </div>
-
-      <div class="placements-panels">
-        <section class="placements-panel is-active"
-                 id="placements-panel-HBOMax"
-                 data-option="HBOMax"
-                 role="tabpanel"
-                 aria-labelledby="placements-option-HBOMax">
+    <div class="placements-carousel" role="region" aria-roledescription="carousel" aria-label="Broadcast placement posters" data-interval="3200">
+      <div class="placements-track">
+        <article class="placements-slide is-active"
+                 id="placements-slide-HBOMax"
+                 data-title="HBO Max — Game Changers"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="HBO Max — Game Changers"
+                 aria-hidden="false">
           <h3>Game Changers</h3>
           <figure class="placements-figure">
             <div class="placements-image" role="img" aria-label="Placeholder collage for Aurora FM morning show"></div>
@@ -365,14 +329,15 @@
           <p>Segment scoring includes gentle synth pads and rhythmic guitar swells that ebb between guest commentary, city news,
           and sponsor stingers.</p>
           <p>Aurora FM uses the cues to create a calm yet energetic morning tone that keeps listeners tuned during drive time.</p>
-        </section>
+        </article>
 
-        <section class="placements-panel"
-                 id="placements-panel-coastal"
-                 data-option="coastal"
-                 role="tabpanel"
-                 aria-labelledby="placements-option-coastal"
-                 hidden>
+        <article class="placements-slide"
+                 id="placements-slide-coastal"
+                 data-title="Coastal Wave Radio — Tidepool Sessions"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Coastal Wave Radio — Tidepool Sessions"
+                 aria-hidden="true">
           <h3>Tidepool Sessions</h3>
           <figure class="placements-figure">
             <div class="placements-image" role="img" aria-label="Placeholder stage shot for Coastal Wave Radio"></div>
@@ -380,14 +345,15 @@
           </figure>
           <p>Warm folk instrumentation underscores each session, weaving in subtle wave foley for an intimate waterfront ambience.</p>
           <p>Promotional spots highlight the weekly residency schedule and upcoming artist collaborations.</p>
-        </section>
+        </article>
 
-        <section class="placements-panel"
-                 id="placements-panel-metro"
-                 data-option="metro"
-                 role="tabpanel"
-                 aria-labelledby="placements-option-metro"
-                 hidden>
+        <article class="placements-slide"
+                 id="placements-slide-metro"
+                 data-title="Metro Pulse Network — City Beat Dispatch"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Metro Pulse Network — City Beat Dispatch"
+                 aria-hidden="true">
           <h3>City Beat Dispatch</h3>
           <figure class="placements-figure">
             <div class="placements-image" role="img" aria-label="Placeholder aerial map graphic for Metro Pulse Network"></div>
@@ -395,14 +361,15 @@
           </figure>
           <p>Driving percussion cues and modular synth beds support the quick-hit storytelling segments and traffic advisories.</p>
           <p>Long-form features lean into moody noir textures for investigative coverage across the urban core.</p>
-        </section>
+        </article>
 
-        <section class="placements-panel"
-                 id="placements-panel-starboard"
-                 data-option="starboard"
-                 role="tabpanel"
-                 aria-labelledby="placements-option-starboard"
-                 hidden>
+        <article class="placements-slide"
+                 id="placements-slide-starboard"
+                 data-title="Starboard Broadcasting — Starlight Cinema Hour"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Starboard Broadcasting — Starlight Cinema Hour"
+                 aria-hidden="true">
           <h3>Starlight Cinema Hour</h3>
           <figure class="placements-figure">
             <div class="placements-image" role="img" aria-label="Placeholder projector reel for Starboard Broadcasting"></div>
@@ -410,8 +377,44 @@
           </figure>
           <p>Symphonic motifs and shimmering arpeggios guide listeners through director commentary, trivia, and sponsor spots.</p>
           <p>A late-night bump set introduces each screening block with a soaring leitmotif tailored for primetime movie lovers.</p>
-        </section>
+        </article>
       </div>
+
+      <div class="placements-controls">
+        <button class="placements-control placements-prev" type="button" aria-label="Previous placement">‹</button>
+        <div class="placements-dots" role="tablist" aria-label="Select placement">
+          <button class="placements-dot is-active"
+                  type="button"
+                  role="tab"
+                  data-index="0"
+                  aria-controls="placements-slide-HBOMax"
+                  aria-selected="true"
+                  tabindex="0">HBO Max</button>
+          <button class="placements-dot"
+                  type="button"
+                  role="tab"
+                  data-index="1"
+                  aria-controls="placements-slide-coastal"
+                  aria-selected="false"
+                  tabindex="-1">Coastal Wave Radio</button>
+          <button class="placements-dot"
+                  type="button"
+                  role="tab"
+                  data-index="2"
+                  aria-controls="placements-slide-metro"
+                  aria-selected="false"
+                  tabindex="-1">Metro Pulse Network</button>
+          <button class="placements-dot"
+                  type="button"
+                  role="tab"
+                  data-index="3"
+                  aria-controls="placements-slide-starboard"
+                  aria-selected="false"
+                  tabindex="-1">Starboard Broadcasting</button>
+        </div>
+        <button class="placements-control placements-next" type="button" aria-label="Next placement">›</button>
+      </div>
+      <p class="placements-status" aria-live="polite"></p>
     </div>
   </section>
 </template>
