@@ -149,18 +149,31 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 }
 
 /* Placements window */
-.content-section.projects .placements-columns{display:flex; flex-direction:column; gap:16px}
-.content-section.projects .placements-panels{flex:1; min-width:0}
-.placements-options{display:flex; flex-direction:column; gap:8px; align-self:stretch; max-height:60vh; overflow-y:auto; padding-right:4px}
-.placements-option{padding:8px 12px; border:2px solid var(--dark); background:var(--win); text-align:left; cursor:pointer; font:inherit}
-.placements-option.is-active{background:var(--accent); border-color:var(--accent-dim)}
-.placements-option:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
-.placements-panel{display:none}
-.placements-panel.is-active{display:block}
-.placements-figure{margin:0 0 12px; display:grid; gap:8px}
+.content-section.projects .placements-carousel{display:flex; flex-direction:column; gap:12px; max-width:720px; margin:0 auto}
+.placements-track{position:relative; min-height:320px; border:2px solid var(--dark); border-radius:14px; background:linear-gradient(135deg, #fefefe, #e3e3e3); overflow:hidden; box-shadow:inset -2px -2px 0 rgba(0,0,0,.18)}
+.placements-slide{position:absolute; inset:0; padding:18px 20px; display:grid; gap:12px; align-content:flex-start; opacity:0; transform:translateX(6%); transition:opacity 220ms ease, transform 220ms ease}
+.placements-slide.is-active{opacity:1; transform:translateX(0); pointer-events:auto; z-index:1}
+.placements-slide:not(.is-active){pointer-events:none}
+.placements-slide h3{margin:0; font-size:20px}
+.placements-figure{margin:0; display:grid; gap:8px}
 .placements-image{width:100%; aspect-ratio:3/2; border:2px dashed var(--dark); background:repeating-linear-gradient(135deg, rgba(0,0,0,.08) 0, rgba(0,0,0,.08) 16px, transparent 16px, transparent 32px); border-radius:8px}
+.placements-controls{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.placements-control{width:36px; height:36px; border:2px solid var(--dark); border-radius:50%; background:var(--accent); font-size:20px; line-height:1; cursor:pointer; display:grid; place-items:center; transition:background 150ms ease, transform 150ms ease}
+.placements-control:disabled{opacity:.4; cursor:default}
+.placements-control:hover:not(:disabled),
+.placements-control:focus-visible:not(:disabled){background:var(--accent-dim)}
+.placements-control:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
+.placements-dots{display:flex; align-items:center; justify-content:center; gap:8px; flex:1; min-width:200px}
+.placements-dot{padding:6px 12px; border:2px solid var(--dark); border-radius:999px; background:var(--win); cursor:pointer; font:inherit; font-size:12px; line-height:1.2; white-space:nowrap; transition:background 150ms ease, transform 150ms ease}
+.placements-dot.is-active{background:var(--accent); border-color:var(--accent-dim); transform:translateY(-1px)}
+.placements-dot:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
+.placements-status{margin:0; font-size:12px; text-align:center; color:var(--darker)}
 
-@media (min-width:720px){
-  .content-section.projects .placements-columns{flex-direction:row; align-items:flex-start}
-  .placements-options{min-width:220px}
+@media (min-width:640px){
+  .placements-slide{grid-template-columns:minmax(220px, 1fr) minmax(0, 1.2fr)}
+  .placements-slide h3{grid-column:1/-1; font-size:22px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .placements-slide{transition:none; transform:none}
 }
