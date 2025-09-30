@@ -201,7 +201,36 @@ function initPlacementsCarousel(windowEl){
 
   const prevBtn = carousel.querySelector('.placements-prev');
   const nextBtn = carousel.querySelector('.placements-next');
-  const dots = Array.from(carousel.querySelectorAll('.placements-dot'));
+  const dotsContainer = carousel.querySelector('.placements-dots');
+  let dots = Array.from(carousel.querySelectorAll('.placements-dot'));
+
+  if(dotsContainer){
+    dotsContainer.innerHTML = '';
+    dots = slides.map((slide, index) => {
+      const dot = document.createElement('button');
+      dot.className = 'placements-dot';
+      dot.type = 'button';
+      dot.setAttribute('role', 'tab');
+      dot.dataset.index = String(index);
+
+      if(!slide.id){
+        slide.id = `placements-slide-${index + 1}`;
+      }
+      dot.setAttribute('aria-controls', slide.id);
+      dot.setAttribute('aria-selected', 'false');
+      dot.setAttribute('tabindex', '-1');
+
+      const heading = slide.querySelector('h3')?.textContent?.trim();
+      const label = heading || slide.dataset.title || `Slide ${index + 1}`;
+      dot.textContent = label;
+      dot.setAttribute('aria-label', label);
+
+      dotsContainer.appendChild(dot);
+      return dot;
+    });
+  }
+
+  dots = dots.filter(Boolean);
   const status = carousel.querySelector('.placements-status');
   const total = slides.length;
   let current = Math.max(0, slides.findIndex(slide => slide.classList.contains('is-active')));

@@ -156,7 +156,8 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 .placements-slide:not(.is-active){pointer-events:none}
 .placements-slide h3{margin:0; font-size:20px}
 .placements-figure{margin:0; display:grid; gap:8px}
-.placements-image{width:100%; aspect-ratio:3/2; border:2px dashed var(--dark); background:repeating-linear-gradient(135deg, rgba(0,0,0,.08) 0, rgba(0,0,0,.08) 16px, transparent 16px, transparent 32px); border-radius:8px}
+.placements-image{width:100%; border-radius:8px; display:block; object-fit:cover}
+.placements-image:not(img){aspect-ratio:3/2; border:2px dashed var(--dark); background:repeating-linear-gradient(135deg, rgba(0,0,0,.08) 0, rgba(0,0,0,.08) 16px, transparent 16px, transparent 32px)}
 .placements-controls{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
 .placements-control{width:36px; height:36px; border:2px solid var(--dark); border-radius:50%; background:var(--accent); font-size:20px; line-height:1; cursor:pointer; display:grid; place-items:center; transition:background 150ms ease, transform 150ms ease}
 .placements-control:disabled{opacity:.4; cursor:default}
