@@ -151,12 +151,19 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 /* Placements window */
 .content-section.projects .placements-carousel{display:flex; flex-direction:column; gap:12px; max-width:720px; margin:0 auto}
 .placements-track{border:2px solid var(--dark); border-radius:14px; background:linear-gradient(135deg, #fefefe, #e3e3e3); box-shadow:inset -2px -2px 0 rgba(0,0,0,.18); display:grid}
-.placements-slide{padding:18px 20px; display:none; gap:12px; align-content:flex-start; grid-area:1/1}
-.placements-slide.is-active{display:grid; pointer-events:auto; animation:placements-slide-in 220ms ease both}
+.placements-slide{padding:18px 20px; display:none; flex-direction:column; gap:16px; grid-area:1/1}
+.placements-slide.is-active{display:flex; pointer-events:auto; animation:placements-slide-in 220ms ease both}
 .placements-slide:not(.is-active){pointer-events:none}
 .placements-slide h3{margin:0; font-size:20px}
-.placements-figure{margin:0; display:grid; gap:8px}
-.placements-image{display:block; width:auto; height:auto; max-width:100%; border-radius:8px}
+.placements-details{display:flex; flex-direction:column; gap:18px}
+.placements-copy{display:flex; flex-direction:column; gap:18px}
+.placements-blurb{margin:0}
+.placements-tracks{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:18px}
+.placements-tracks li{display:flex; flex-direction:column; gap:8px}
+.placements-track-description{font-weight:600}
+.placements-tracks audio{width:100%; max-width:100%}
+.placements-figure{margin:0; display:flex; flex-direction:column; gap:8px}
+.placements-image{display:block; width:100%; height:auto; border-radius:8px}
 .placements-image:not(img){aspect-ratio:3/2; border:2px dashed var(--dark); background:repeating-linear-gradient(135deg, rgba(0,0,0,.08) 0, rgba(0,0,0,.08) 16px, transparent 16px, transparent 32px)}
 .placements-tracklist{display:grid; gap:8px; padding:12px; border:1px solid var(--dark); border-radius:10px; background:rgba(255,255,255,.72)}
 .placements-tracklist h4{margin:0; font-size:16px}
@@ -179,8 +186,11 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 }
 
 @media (min-width:640px){
-  .placements-slide{grid-template-columns:minmax(220px, 1fr) minmax(0, 1.2fr)}
-  .placements-slide h3{grid-column:1/-1; font-size:22px}
+  .placements-slide{gap:22px}
+  .placements-slide h3{font-size:22px}
+  .placements-details{flex-direction:row; align-items:flex-start; gap:24px}
+  .placements-figure{flex:0 0 260px; max-width:320px}
+  .placements-copy{flex:1}
 }
 
 @media (prefers-reduced-motion:reduce){
