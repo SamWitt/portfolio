@@ -149,12 +149,9 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 }
 
 /* Placements window */
-.content-section.projects .placements-carousel{display:flex; flex-direction:column; gap:12px; max-width:720px; margin:0 auto}
-.placements-track{border:2px solid var(--dark); border-radius:14px; background:linear-gradient(135deg, #fefefe, #e3e3e3); box-shadow:inset -2px -2px 0 rgba(0,0,0,.18); display:grid}
-.placements-slide{padding:18px 20px; display:none; flex-direction:column; gap:16px; grid-area:1/1}
-.placements-slide.is-active{display:flex; pointer-events:auto; animation:placements-slide-in 220ms ease both}
-.placements-slide:not(.is-active){pointer-events:none}
-.placements-slide h3{margin:0; font-size:20px}
+.content-section.projects .placements-list{display:flex; flex-direction:column; gap:24px; max-width:720px; margin:0 auto}
+.placements-card{border:2px solid var(--dark); border-radius:14px; background:linear-gradient(135deg, #fefefe, #e3e3e3); box-shadow:inset -2px -2px 0 rgba(0,0,0,.18); padding:18px 20px; display:flex; flex-direction:column; gap:16px}
+.placements-card h3{margin:0; font-size:20px}
 .placements-details{display:flex; flex-direction:column; gap:18px}
 .placements-copy{display:flex; flex-direction:column; gap:18px}
 .placements-blurb{margin:0}
@@ -168,32 +165,11 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
 .placements-tracklist{display:grid; gap:8px; padding:12px; border:1px solid var(--dark); border-radius:10px; background:rgba(255,255,255,.72)}
 .placements-tracklist h4{margin:0; font-size:16px}
 .placements-tracklist p{margin:0}
-.placements-controls{display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap}
-.placements-control{width:36px; height:36px; border:2px solid var(--dark); border-radius:50%; background:var(--accent); font-size:20px; line-height:1; cursor:pointer; display:grid; place-items:center; transition:background 150ms ease, transform 150ms ease}
-.placements-control:disabled{opacity:.4; cursor:default}
-.placements-control:hover:not(:disabled),
-.placements-control:focus-visible:not(:disabled){background:var(--accent-dim)}
-.placements-control:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
-.placements-dots{display:none}
-.placements-dot{padding:6px 12px; border:2px solid var(--dark); border-radius:999px; background:var(--win); cursor:pointer; font:inherit; font-size:12px; line-height:1.2; white-space:nowrap; transition:background 150ms ease, transform 150ms ease}
-.placements-dot.is-active{background:var(--accent); border-color:var(--accent-dim); transform:translateY(-1px)}
-.placements-dot:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
-.placements-status{margin:0; font-size:12px; text-align:center; color:var(--darker)}
-
-@keyframes placements-slide-in{
-  from{opacity:0; transform:translateX(6%);}
-  to{opacity:1; transform:translateX(0);}
-}
 
 @media (min-width:640px){
-  .placements-slide{gap:22px}
-  .placements-slide h3{font-size:22px}
+  .placements-card{gap:22px}
+  .placements-card h3{font-size:22px}
   .placements-details{flex-direction:row; align-items:flex-start; gap:24px}
   .placements-figure{flex:0 0 260px; max-width:320px}
   .placements-copy{flex:1}
-}
-
-@media (prefers-reduced-motion:reduce){
-  .placements-slide{transition:none; transform:none}
-  .placements-slide.is-active{animation:none}
 }
