@@ -128,24 +128,26 @@ body{margin:0; font:14px/1 "Segoe UI", sans-serif; color:var(--text); background
   .about-options{min-width:140px}
 }
 /* Publishers window */
-.content-section.publishers .publisher-columns{display:flex; flex-direction:column; gap:16px}
-.content-section.publishers .publisher-panels{flex:1; min-width:0}
-.publisher-options{display:flex; flex-direction:column; gap:8px; align-self:flex-start}
-.publisher-option{padding:8px 12px; border:2px solid var(--dark); background:var(--win); text-align:left; cursor:pointer; font:inherit}
-.publisher-option.is-active{background:var(--accent); border-color:var(--accent-dim)}
-.publisher-option:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
-.publisher-panel{display:none}
-.publisher-panel.is-active{display:block}
-.publisher-hero{display:flex; gap:16px; align-items:center; margin:0 0 16px}
-.publisher-hero figcaption{margin:0}
-.publisher-hero h3{margin:0 0 4px}
-.publisher-logo{width:96px; height:96px; border:2px solid var(--dark); border-radius:16px; background:var(--light); display:grid; place-items:center; flex:0 0 auto; overflow:hidden; box-shadow:inset -2px -2px 0 rgba(0,0,0,0.2)}
-.publisher-logo svg{width:100%; height:100%}
 .publishers-intro, .publishers-outro{max-width:62ch}
+.publisher-carousel{margin-top:20px; display:flex; flex-direction:column; gap:12px}
+.publisher-viewport{position:relative; overflow:hidden; border:2px solid var(--dark); border-radius:18px; background:linear-gradient(145deg, #fefefe, #e4e4e4); box-shadow:inset -2px -2px 0 rgba(0,0,0,0.18)}
+.publisher-viewport:focus-visible{outline:2px dashed var(--titlebar); outline-offset:4px}
+.publisher-track{display:flex; gap:18px; list-style:none; margin:0; padding:24px; transition:transform 800ms cubic-bezier(.33,.11,.15,.99)}
+.publisher-slide{flex:0 0 clamp(240px, 60vw, 320px); display:flex; align-items:stretch}
+.publisher-slide figure{margin:0; display:flex; flex-direction:column; gap:12px; width:100%; transition:transform 400ms ease, box-shadow 400ms ease}
+.publisher-slide img{width:100%; height:auto; border-radius:14px; border:2px solid var(--dark); box-shadow:0 4px 12px rgba(0,0,0,.22)}
+.publisher-slide figcaption{display:flex; flex-direction:column; gap:6px}
+.publisher-slide h3{margin:0; font-size:18px}
+.publisher-slide p{margin:0; font-size:14px; line-height:1.45}
+.publisher-slide.is-active figure{transform:translateY(-6px); box-shadow:0 10px 20px rgba(0,0,0,.25)}
+.publisher-controls{display:flex; justify-content:center; gap:12px}
+.publisher-nav{width:40px; height:40px; border-radius:50%; border:2px solid var(--dark); background:var(--win); font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:inset -1px -1px 0 var(--light), inset 1px 1px 0 rgba(0,0,0,0.25)}
+.publisher-nav:focus-visible{outline:2px dashed var(--titlebar); outline-offset:2px}
+.publisher-nav:active{background:var(--accent)}
 
-@media (min-width:640px){
-  .content-section.publishers .publisher-columns{flex-direction:row; align-items:flex-start}
-  .publisher-options{min-width:200px}
+@media (prefers-reduced-motion: reduce){
+  .publisher-track{transition:none}
+  .publisher-slide figure{transition:none}
 }
 
 /* Placements window */
