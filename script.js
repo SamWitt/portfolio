@@ -366,6 +366,153 @@ function initPublishersWindow(windowEl){
   }
 }
 
+function initContactWindow(windowEl){
+  if(!windowEl) return;
+  const contactSection = windowEl.querySelector('.content-section.contact');
+  if(!contactSection) return;
+
+  const form = contactSection.querySelector('.contact-form');
+  const emailInput = form?.querySelector('input[name="email"]');
+  const messageInput = form?.querySelector('textarea[name="message"]');
+  const cancelBtn = form?.querySelector('[data-contact-cancel]');
+  const statusBanner = contactSection.querySelector('.contact-status');
+  const statusLabel = contactSection.querySelector('[data-contact-status]');
+
+  if(statusBanner){
+    statusBanner.hidden = true;
+    statusBanner.dataset.tone = 'info';
+  }
+
+  const baseStatus = statusLabel?.textContent?.trim() || 'SamWitt — Online';
+  const presenceMessages = [
+    baseStatus,
+    'SamWitt — Away (grabbing coffee ☕)',
+    'SamWitt — Back in the studio 🎶'
+  ];
+
+  let presenceIndex = 0;
+  let statusTimer = null;
+  let destroyed = false;
+
+  const prefersReducedMotion = typeof window.matchMedia === 'function'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)')
+    : null;
+
+  const updatePresence = () => {
+    if(!statusLabel) return;
+    const message = presenceMessages[presenceIndex] || baseStatus;
+    statusLabel.textContent = message;
+  };
+
+  const stopStatusTimer = () => {
+    if(statusTimer !== null){
+      clearInterval(statusTimer);
+      statusTimer = null;
+    }
+  };
+
+  const startStatusTimer = () => {
+    stopStatusTimer();
+    if(presenceMessages.length <= 1) return;
+    if(prefersReducedMotion?.matches) return;
+    statusTimer = window.setInterval(() => {
+      presenceIndex = (presenceIndex + 1) % presenceMessages.length;
+      updatePresence();
+    }, 8000);
+  };
+
+  const setStatusMessage = (text, tone = 'info') => {
+    if(!statusBanner) return;
+    statusBanner.textContent = text;
+    statusBanner.dataset.tone = tone;
+    statusBanner.hidden = !text;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if(!form || !emailInput || !messageInput) return;
+    const emailValue = emailInput.value.trim();
+    const messageValue = messageInput.value.trim();
+
+    if(!emailValue || !messageValue){
+      setStatusMessage('Please add both your email and a message before sending.', 'error');
+      if(!emailValue){
+        emailInput.focus();
+      } else {
+        messageInput.focus();
+      }
+      return;
+    }
+
+    const subject = `New message from ${emailValue}`;
+    const body = `${messageValue}\n\nReply to: ${emailValue}`;
+    const mailtoUrl = `mailto:samuelwitt@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    window.open(mailtoUrl, '_blank', 'noopener');
+    setStatusMessage('Launching your email client… thanks for reaching out!', 'success');
+    form.reset();
+    emailInput.focus();
+  };
+
+  const handleCancel = () => {
+    form?.reset();
+    if(emailInput){
+      emailInput.focus();
+    }
+    setStatusMessage('Message draft cleared.', 'info');
+  };
+
+  const handleMotionChange = () => {
+    if(prefersReducedMotion?.matches){
+      stopStatusTimer();
+    } else {
+      startStatusTimer();
+    }
+    updatePresence();
+  };
+
+  const cleanup = () => {
+    if(destroyed) return;
+    destroyed = true;
+    stopStatusTimer();
+    form?.removeEventListener('submit', handleSubmit);
+    cancelBtn?.removeEventListener('click', handleCancel);
+    if(prefersReducedMotion){
+      if(typeof prefersReducedMotion.removeEventListener === 'function'){
+        prefersReducedMotion.removeEventListener('change', handleMotionChange);
+      } else if(typeof prefersReducedMotion.removeListener === 'function'){
+        prefersReducedMotion.removeListener(handleMotionChange);
+      }
+    }
+    observer?.disconnect();
+  };
+
+  if(form){
+    form.addEventListener('submit', handleSubmit);
+  }
+  if(cancelBtn){
+    cancelBtn.addEventListener('click', handleCancel);
+  }
+
+  updatePresence();
+  startStatusTimer();
+
+  if(prefersReducedMotion){
+    if(typeof prefersReducedMotion.addEventListener === 'function'){
+      prefersReducedMotion.addEventListener('change', handleMotionChange);
+    } else if(typeof prefersReducedMotion.addListener === 'function'){
+      prefersReducedMotion.addListener(handleMotionChange);
+    }
+  }
+
+  const observer = new MutationObserver(() => {
+    if(!windowEl.isConnected){
+      cleanup();
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
 // Canonical initializer; keep legacy tab UI available if markup still uses it
 function initProjectsWindow(windowEl){
   if (!windowEl) return;
@@ -395,7 +542,11 @@ const openers = {
     return win;
   },
 
-  contact: () => makeWindow({ title: 'Contact', tpl: 'tpl-contact', x: 220, y: 160, w: 360 }),
+  contact: () => {
+    const win = makeWindow({ title: 'Contact', tpl: 'tpl-contact', x: 220, y: 160, w: 360 });
+    if(typeof initContactWindow === 'function') initContactWindow(win);
+    return win;
+  },
   collaborators: () => makeWindow({ title: 'Collaborators', tpl: 'tpl-collaborators', x: 200, y: 180, w: 420 }),
 
   publishers: () => {

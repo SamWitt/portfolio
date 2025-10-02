@@ -492,17 +492,72 @@
 
 <template id="tpl-contact">
   <section class="content-section contact" aria-labelledby="contact-heading">
-    <h2 id="contact-heading">Let&apos;s Collaborate</h2>
-    <p>Hi!  I'de love to hear from YOU.</p>
-    <dl>
-      <dt>Email</dt>
-      <dd><a href="mailto:hello@samuelwitt.com">samuelwitt@gmail.com</a></dd>
-      <dt>Phone</dt>
-      <dd><a href="tel:+13175551234">+1 (915) 328-5420</a></dd>
-      <dt>Studio</dt>
-      <dd>United States of America &mdash; collaborating worldwide.</dd>
-    </dl>
-    <p>Include project scope, timeline, and any reference tracks when reaching out so Samuel can respond with tailored ideas and availability, pleeeease.</p>
+    <div class="contact-window-shell" role="document">
+      <header class="contact-header">
+        <div class="contact-header-main">
+          <span class="contact-header-title" aria-hidden="true">AIM EXPRESS</span>
+          <p id="contact-heading" class="contact-heading">Let&apos;s Collaborate</p>
+        </div>
+        <div class="contact-header-status" data-contact-status>SamWitt — Online</div>
+        <div class="contact-header-actions" aria-hidden="true">
+          <span class="contact-light contact-light--green"></span>
+          <span class="contact-light contact-light--yellow"></span>
+          <span class="contact-light contact-light--red"></span>
+        </div>
+      </header>
+
+      <div class="contact-columns">
+        <aside class="contact-buddies" aria-label="Buddy list">
+          <h3 class="contact-buddies-title">Buddy List</h3>
+          <ul class="contact-buddies-list">
+            <li class="contact-buddy contact-buddy--online">
+              <span class="contact-buddy-handle">SamWitt</span>
+              <a class="contact-buddy-link" href="mailto:samuelwitt@gmail.com">samuelwitt@gmail.com</a>
+            </li>
+            <li class="contact-buddy contact-buddy--away">
+              <span class="contact-buddy-handle">BookingsBot</span>
+              <span class="contact-buddy-note">Drop project details + reference tracks.</span>
+            </li>
+            <li class="contact-buddy contact-buddy--offline">
+              <span class="contact-buddy-handle">StudioLine</span>
+              <a class="contact-buddy-link" href="tel:+19153285420">+1 (915) 328-5420</a>
+            </li>
+          </ul>
+        </aside>
+
+        <div class="contact-chat" aria-labelledby="contact-heading">
+          <div class="contact-messages" aria-live="polite">
+            <div class="contact-message contact-message--incoming">
+              <span class="contact-message-label" aria-hidden="true">SamWitt:</span>
+              <p>Hey! I&apos;m ready to jam on your next project. Send the vibe, scope, and timeline so I can reply with ideas + availability.</p>
+            </div>
+            <div class="contact-message contact-message--outgoing">
+              <span class="contact-message-label" aria-hidden="true">You:</span>
+              <p>Let&apos;s collaborate! Drop your details below and I&apos;ll ping Sam instantly.</p>
+            </div>
+          </div>
+
+          <form class="contact-form" data-mail="samuelwitt@gmail.com" aria-describedby="contact-form-help">
+            <div class="contact-field">
+              <label class="contact-label sr-only" for="contact-email">Your email</label>
+              <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Your email" required aria-required="true" />
+            </div>
+
+            <div class="contact-field">
+              <label class="contact-label sr-only" for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" rows="5" placeholder="What are you working on?" required aria-required="true"></textarea>
+              <p id="contact-form-help" class="contact-help">Share project scope, timeline, and any reference tracks.</p>
+            </div>
+
+            <div class="contact-actions">
+              <button type="submit" class="contact-btn contact-btn--primary">Send IM</button>
+              <button type="button" class="contact-btn contact-btn--ghost" data-contact-cancel>Cancel</button>
+            </div>
+            <p class="contact-status" role="status" aria-live="polite" hidden></p>
+          </form>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
