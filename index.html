@@ -232,77 +232,69 @@
 <template id="tpl-publishers">
   <section class="content-section publishers" aria-labelledby="publishers-heading">
     <h2 id="publishers-heading">Publishers &amp; Libraries</h2>
-    <p class="publishers-intro">Samuel&apos;s catalog is represented by select publishers and curated libraries for sync licensing. Choose a partner to see a snapshot of their catalog focus and collaboration highlights.</p>
-    <div class="publisher-columns">
-      <div class="publisher-options" role="tablist" aria-orientation="vertical">
-        <button class="publisher-option is-active" role="tab" id="publisher-option-atlas" type="button" data-option="atlas" aria-controls="publisher-panel-atlas" aria-selected="true" aria-expanded="true">Atlas Audio Library</button>
-        <button class="publisher-option" role="tab" id="publisher-option-rosewood" type="button" data-option="rosewood" aria-controls="publisher-panel-rosewood" aria-selected="false" aria-expanded="false">Rosewood Scores</button>
-        <button class="publisher-option" role="tab" id="publisher-option-pulse" type="button" data-option="pulse" aria-controls="publisher-panel-pulse" aria-selected="false" aria-expanded="false">Pulse Sync</button>
+    <p class="publishers-intro">Samuel&apos;s catalog is represented by select publishers and curated libraries for sync licensing. Browse the carousel to meet the partners stewarding his work.</p>
+    <div class="publisher-carousel" role="region" aria-label="Publisher partners carousel">
+      <div class="publisher-viewport" tabindex="0" aria-live="polite">
+        <ul class="publisher-track">
+          <li class="publisher-slide" data-label="Universal Production Music">
+            <figure>
+              <img src="assets/img/universal.png" alt="Universal Production Music logo" />
+              <figcaption>
+                <h3>Universal Production Music</h3>
+                <p>Global powerhouse providing worldwide placement opportunities for Samuel&apos;s high-energy cues.</p>
+              </figcaption>
+            </figure>
+          </li>
+          <li class="publisher-slide" data-label="Soho Production Music">
+            <figure>
+              <img src="assets/img/soho.png" alt="Soho Production Music logo" />
+              <figcaption>
+                <h3>Soho Production Music</h3>
+                <p>London-based boutique with a focus on stylish grooves and character-rich instrumentals.</p>
+              </figcaption>
+            </figure>
+          </li>
+          <li class="publisher-slide" data-label="Paint the Noise">
+            <figure>
+              <img src="assets/img/paintthenoise.png" alt="Paint the Noise logo" />
+              <figcaption>
+                <h3>Paint the Noise</h3>
+                <p>Indie collective cultivating colorful beats and genre-blending collaborations.</p>
+              </figcaption>
+            </figure>
+          </li>
+          <li class="publisher-slide" data-label="Evolution Media Music">
+            <figure>
+              <img src="assets/img/evolutionmediamusic.png" alt="Evolution Media Music logo" />
+              <figcaption>
+                <h3>Evolution Media Music</h3>
+                <p>Trusted library for broadcast hits, pairing Samuel&apos;s hooks with premium series placements.</p>
+              </figcaption>
+            </figure>
+          </li>
+          <li class="publisher-slide" data-label="Epitome Music Library">
+            <figure>
+              <img src="assets/img/epitome.png" alt="Epitome Music Library logo" />
+              <figcaption>
+                <h3>Epitome Music Library</h3>
+                <p>Curators of modern orchestration and hybrid textures ideal for cinematic storytelling.</p>
+              </figcaption>
+            </figure>
+          </li>
+          <li class="publisher-slide" data-label="Get It Done Music">
+            <figure>
+              <img src="assets/img/getitdone.png" alt="Get It Done Music logo" />
+              <figcaption>
+                <h3>Get It Done Music</h3>
+                <p>Agile team delivering fast-turnaround briefs where Samuel&apos;s versatility shines.</p>
+              </figcaption>
+            </figure>
+          </li>
+        </ul>
       </div>
-      <div class="publisher-panels">
-        <div class="publisher-panel is-active" id="publisher-panel-atlas" data-option="atlas" role="tabpanel" aria-labelledby="publisher-option-atlas">
-          <figure class="publisher-hero">
-            <div class="publisher-logo" role="img" aria-label="Atlas Audio Library placeholder logo">
-              <svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
-                <defs>
-                  <linearGradient id="atlas-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#233979" />
-                    <stop offset="100%" stop-color="#5f8bd4" />
-                  </linearGradient>
-                </defs>
-                <rect x="4" y="4" width="88" height="88" rx="14" fill="url(#atlas-gradient)" />
-                <path d="M28 68L48 22l20 46h-9.6l-3.8-9H41.4l-3.8 9H28zm21-18.2h7.8L48 34.5l-6.8 15.3H49z" fill="#f6f8ff" />
-              </svg>
-            </div>
-            <figcaption>
-              <h3>Atlas Audio Library</h3>
-              <p>Electronic and hybrid orchestral collections with curated playlists across genres.</p>
-            </figcaption>
-          </figure>
-          <p>Atlas champions adventurous sound design that still feels grounded in melody. Their briefs lean into futuristic textures balanced with organic motifs, making them a natural fit for Samuel&apos;s hybrid compositions.</p>
-          <ul>
-            <li><strong>Collaboration highlights:</strong> Retrowave action cues, cinematic downtempo suites.</li>
-            <li><strong>Recent placements:</strong> Streaming series teasers, esports broadcast packages.</li>
-          </ul>
-        </div>
-        <div class="publisher-panel" id="publisher-panel-rosewood" data-option="rosewood" role="tabpanel" aria-labelledby="publisher-option-rosewood" hidden>
-          <figure class="publisher-hero">
-            <div class="publisher-logo" role="img" aria-label="Rosewood Scores placeholder logo">
-              <svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
-                <rect x="6" y="6" width="84" height="84" rx="18" fill="#6a2d44" />
-                <path d="M28 70c12-14 18-21 30-34l10 10-30 32h-10V70zm28-36c-2.4 0-4.4-2-4.4-4.4 0-2.4 2-4.4 4.4-4.4s4.4 2 4.4 4.4c0 2.4-2 4.4-4.4 4.4z" fill="#fbe7ef" />
-              </svg>
-            </div>
-            <figcaption>
-              <h3>Rosewood Scores</h3>
-              <p>Bespoke film and television placements with an ear for acoustic warmth.</p>
-            </figcaption>
-          </figure>
-          <p>Rosewood curates intimate ensembles and richly orchestrated themes, pairing Samuel&apos;s harmonic sensibility with directors seeking emotional nuance.</p>
-          <ul>
-            <li><strong>Collaboration highlights:</strong> Chamber string ballads, piano-led dramatic cues.</li>
-            <li><strong>Recent placements:</strong> Prestige docu-series, festival-bound short films.</li>
-          </ul>
-        </div>
-        <div class="publisher-panel" id="publisher-panel-pulse" data-option="pulse" role="tabpanel" aria-labelledby="publisher-option-pulse" hidden>
-          <figure class="publisher-hero">
-            <div class="publisher-logo" role="img" aria-label="Pulse Sync placeholder logo">
-              <svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
-                <rect x="8" y="8" width="80" height="80" rx="16" fill="#0c5a4a" />
-                <polyline points="20,58 34,46 42,54 54,34 62,42 76,30" fill="none" stroke="#9ef5d7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <figcaption>
-              <h3>Pulse Sync</h3>
-              <p>Trailer-ready cues with flexible licensing options for fast-moving campaigns.</p>
-            </figcaption>
-          </figure>
-          <p>Pulse Sync thrives on high-impact statements and momentum. Samuel&apos;s layered builds and rhythmic hooks power their catalog&apos;s adrenaline-fueled playlists.</p>
-          <ul>
-            <li><strong>Collaboration highlights:</strong> Percussive hybrid anthems, tension risers.</li>
-            <li><strong>Recent placements:</strong> Game launch promos, blockbuster trailer spots.</li>
-          </ul>
-        </div>
+      <div class="publisher-controls">
+        <button class="publisher-nav" type="button" data-carousel-prev aria-label="Previous publisher">◀</button>
+        <button class="publisher-nav" type="button" data-carousel-next aria-label="Next publisher">▶</button>
       </div>
     </div>
     <p class="publishers-outro">For clearance details or custom requests, reach out via the contact window.</p>
