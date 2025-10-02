@@ -190,180 +190,6 @@ function initTabbedWindow(windowEl, { optionSelector, panelSelector } = {}){
   });
 }
 
-function initPlacementsCarousel(windowEl){
-  if(!windowEl) return false;
-  const carousel = windowEl.querySelector('.placements-carousel');
-  if(!carousel) return false;
-
-  const track = carousel.querySelector('.placements-track');
-  const slides = track ? Array.from(track.querySelectorAll('.placements-slide')) : [];
-  if(!slides.length) return false;
-
-  const getSlideImage = (slide) => slide?.querySelector('.placements-image, img') || null;
-  const getSlideLabel = (slide, index) => {
-    const fallback = `Slide ${index + 1}`;
-    if(!slide) return fallback;
-
-    const image = getSlideImage(slide);
-    const alt = image?.getAttribute('alt')?.trim();
-    if(alt){
-      if(slide.getAttribute('aria-label') !== alt){
-        slide.setAttribute('aria-label', alt);
-      }
-      return alt;
-    }
-
-    const ariaLabel = slide.getAttribute('aria-label')?.trim();
-    if(ariaLabel) return ariaLabel;
-
-    const dataTitle = slide.dataset.title?.trim();
-    if(dataTitle) return dataTitle;
-
-    return fallback;
-  };
-
-  const prevBtn = carousel.querySelector('.placements-prev');
-  const nextBtn = carousel.querySelector('.placements-next');
-  const dotsContainer = carousel.querySelector('.placements-dots');
-  let dots = Array.from(carousel.querySelectorAll('.placements-dot'));
-
-  if(dotsContainer){
-    dotsContainer.innerHTML = '';
-    dots = slides.map((slide, index) => {
-      const dot = document.createElement('button');
-      dot.className = 'placements-dot';
-      dot.type = 'button';
-      dot.setAttribute('role', 'tab');
-      dot.dataset.index = String(index);
-
-      if(!slide.id){
-        slide.id = `placements-slide-${index + 1}`;
-      }
-      dot.setAttribute('aria-controls', slide.id);
-      dot.setAttribute('aria-selected', 'false');
-      dot.setAttribute('tabindex', '-1');
-
-      const label = getSlideLabel(slide, index);
-      dot.textContent = label;
-      dot.setAttribute('aria-label', label);
-
-      dotsContainer.appendChild(dot);
-      return dot;
-    });
-  }
-
-  dots = dots.filter(Boolean);
-  const status = carousel.querySelector('.placements-status');
-  const total = slides.length;
-  let current = Math.max(0, slides.findIndex(slide => slide.classList.contains('is-active')));
-  if(current < 0) current = 0;
-
-  const intervalAttr = Number.parseInt(carousel.dataset.interval || '', 10);
-  const delay = Number.isFinite(intervalAttr) && intervalAttr > 0 ? Math.max(intervalAttr, 1500) : 3500;
-  let timerId = null;
-
-  const updateStatus = () => {
-    if(!status) return;
-    const title = getSlideLabel(slides[current], current);
-    const suffix = title ? ` — ${title}` : '';
-    status.textContent = `Slide ${current + 1} of ${total}${suffix}`;
-  };
-
-  const setSlideState = () => {
-    slides.forEach((slide, index) => {
-      const active = index === current;
-      slide.classList.toggle('is-active', active);
-      slide.setAttribute('aria-hidden', String(!active));
-    });
-    dots.forEach((dot, index) => {
-      const active = index === current;
-      dot.classList.toggle('is-active', active);
-      dot.setAttribute('aria-selected', String(active));
-      dot.setAttribute('tabindex', active ? '0' : '-1');
-    });
-    updateStatus();
-  };
-
-  const showSlide = (index) => {
-    current = (index + total) % total;
-    setSlideState();
-  };
-
-  const stopAuto = () => {
-    if(timerId){
-      clearInterval(timerId);
-      timerId = null;
-    }
-  };
-
-  const startAuto = () => {
-    if(total <= 1 || timerId) return;
-    timerId = setInterval(() => {
-      showSlide(current + 1);
-    }, delay);
-  };
-
-  if(prevBtn){
-    prevBtn.disabled = total <= 1;
-    prevBtn.addEventListener('click', () => {
-      stopAuto();
-      showSlide(current - 1);
-      startAuto();
-    });
-  }
-
-  if(nextBtn){
-    nextBtn.disabled = total <= 1;
-    nextBtn.addEventListener('click', () => {
-      stopAuto();
-      showSlide(current + 1);
-      startAuto();
-    });
-  }
-
-  if(dots.length){
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        stopAuto();
-        showSlide(index);
-        startAuto();
-      });
-      dot.addEventListener('keydown', (event) => {
-        const { key } = event;
-        if(key === 'ArrowLeft' || key === 'ArrowUp'){
-          event.preventDefault();
-          const prevIndex = (index - 1 + total) % total;
-          stopAuto();
-          showSlide(prevIndex);
-          dots[prevIndex]?.focus();
-          startAuto();
-        } else if(key === 'ArrowRight' || key === 'ArrowDown'){
-          event.preventDefault();
-          const nextIndex = (index + 1) % total;
-          stopAuto();
-          showSlide(nextIndex);
-          dots[nextIndex]?.focus();
-          startAuto();
-        }
-      });
-    });
-  }
-
-  carousel.addEventListener('mouseenter', stopAuto);
-  carousel.addEventListener('mouseleave', () => {
-    if(!carousel.matches(':focus-within')) startAuto();
-  });
-  carousel.addEventListener('focusin', stopAuto);
-  carousel.addEventListener('focusout', (event) => {
-    if(!carousel.contains(event.relatedTarget)) startAuto();
-  });
-
-  setSlideState();
-  startAuto();
-
-  return true;
-}
-
 /* ------- Specific initializers using the helper ------- */
 function initAboutWindow(windowEl){
   initTabbedWindow(windowEl, {
@@ -378,14 +204,12 @@ function initPublishersWindow(windowEl){
   });
 }
 
-// Canonical initializer that supports both naming schemes
+// Canonical initializer; keep legacy tab UI available if markup still uses it
 function initProjectsWindow(windowEl){
   if (!windowEl) return;
-  if (initPlacementsCarousel(windowEl)) return;
   initTabbedWindow(windowEl, {
-    // support either .placements-* (new) or .project-* (old)
-    optionSelector: '.placements-option, .project-option',
-    panelSelector:  '.placements-panel,  .project-panel'
+    optionSelector: '.project-option',
+    panelSelector:  '.project-panel'
   });
 }
 
